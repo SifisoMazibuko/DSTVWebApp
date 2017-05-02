@@ -1,0 +1,171 @@
+﻿@model DSTVWebApp.Models.Show
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ShowID)
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.AdminID, "AdminID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("AdminID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AdminID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerID, "CustomerID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CustomerID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Show Image</label>
+            @*@Html.LabelFor(model => model.ShowImage, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                <input type="file" name="loadImage" value="loadImage" />
+                
+                @*@Html.EditorFor(model => model.ShowImage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShowImage, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Show Name</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShowName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShowName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Show Description</label>
+            @*@Html.LabelFor(model => model.ShowDescription, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShowDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShowDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Category", new SelectList(new string[] { "--Select Category--", "Sportlight", "TV", "BoxOffice", "CatchUp" }), new { htmlAttributes = new { @class = "form-control", size = "30px", style = "width:100px" } })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Start Date</label>
+            @*@Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">End Date</label>
+            @*@Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", type= "datetime-local" } })
+                @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Genre", new SelectList(new string[] { "--Select Genre--", "Drama", "Series", "Movie", "Sport", "Comedy" }), new { htmlAttributes = new { @class = "form-control", size = "30px", style = "width:100px" } })
+                @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Channel Name</label>
+            @*@Html.LabelFor(model => model.ChannelName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })*@
+                @*@Html.DropDownList("ChannelName", new SelectList(new string[] { "--Select ChannelName--", "Sportlight", "TV", "BoxOffice", "CatchUp" }), new { htmlAttributes = new { @class = "form-control", size = "30px", style = "width:100px" } })*@
+                <select name="ChannelName" style="width:100%">
+                    <option value="value" class="col-sm-offset-2">--Select ChannelName--</option>
+                    <option value="M-Net">M-Net</option>
+                    <option value="M-Net Edge">M-Net Edge</option>
+                    <option value="M-Net Movies Premiere">M-Net Movies Premiere</option>
+                    <option value="M-Net Movies Comedy">M-Net Movies Comedy</option>
+                    <option value="M-Net Movies Family">M-Net Movies Family</option>
+                    <option value="M-Net Movies Action+">M-Net Movies Action+</option>
+                    <option value="M-Net Movies Romance">M-Net Movies Romance</option>
+                    <option value="M-Net Movies Showcase">M-Net Movies Showcase</option>
+                    <option value="M-Net Movies Action">M-Net Movies Action</option>
+                    <option value="M-Net Movies Stars">M-Net Movies Stars</option>
+                    <option value="Studio Universal">Studio Universal</option>
+                    <option value="Vuzu Amp">Vuzu Amp</option>
+                    <option value="M-Net City">M-Net City</option>
+                    <option value="Vuzu">Vuzu</option>
+                    <option value="Universal Channel">Universal Channel</option>
+                    <option value="Telemundo">Telemundo</option>
+                    <option value="BBC First">BBC First</option>
+                    <option value="BBC Brit">BBC Brit</option>
+                    <option value="Discovery Channel">Discovery Channel</option>
+                    <option value="Comedy Central">Comedy Central</option>
+                    <option value="ITV Choice">ITV Choice</option>
+
+                </select>
+                @Html.ValidationMessageFor(model => model.ChannelName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Channel, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Channel, new { htmlAttributes = new { @class = "form-control", min="101", max = "413" } })
+                @Html.ValidationMessageFor(model => model.Channel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Age Restriction</label>
+            @*@Html.LabelFor(model => model.AgeRestriction, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AgeRestriction, new { htmlAttributes = new { @class = "form-control", min="9", max="18" } })
+                @Html.ValidationMessageFor(model => model.AgeRestriction, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink(" <<Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,64 @@
+﻿@model DSTVWebApp.Models.RegisterFlow
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<!-->-->
+@*<h2>Register</h2>*@
+<br/>
+<br />
+<br />
+<br />
+@ViewBag.Message
+<h2 class="text-center">Please fill in the Information below</h2>
+<div class="container col-sm-offset-5">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.IdNumberOrPassport, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-sm-12">
+                    @Html.EditorFor(model => model.IdNumberOrPassport, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter your ID or Passport Number" } })
+                    @Html.ValidationMessageFor(model => model.IdNumberOrPassport, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*<div id="parent">
+                <div>
+                    <div style="font:10px" id="txt">This will be used to identity your DSTV account and will not be shared publicly</div>
+                </div>
+                
+            </div>*@
+            
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="submit" value="Next"  class="btn btn-lg btn-primary" style="width:100%" />
+                </div>
+            </div>
+        </div>
+    }
+    
+</div>
+@*<div class="text-center" style="color:#0094ff">
+    @Html.ActionLink("Back", "Index")
+</div>*@
+<div class="text-center" style="color:#0094ff">
+    @Html.ActionLink("Already Registered? Login", "Login")
+</div>
+
+<script type="text/javascript">
+    $("#parent").hover(
+        function () {
+            $("#txt").show();
+
+        },
+        function () {
+            $("#txt").hide();
+        }
+    )
+</script>
+
+

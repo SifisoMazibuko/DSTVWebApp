@@ -1,0 +1,218 @@
+﻿@model IEnumerable<DSTVWebApp.Models.Show>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<style type="text/css">
+    #myInput {
+        background-image: url('/Images/search.png');
+        background-position: 10px 12px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+</style>
+<!-- Bootstrap -->
+<link href="./Content/bootstrap.min.css" rel="stylesheet" />
+<link href="./Content/stylesheet.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+<style>
+    #btnAddProduct {
+        margin-bottom: 5px;
+    }
+</style>
+
+
+
+@*<link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" type="text/css" rel="stylesheet" />
+    <link href="http://http://cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css" type="text/javascript" rel="stylesheet" />*@
+
+<fieldset>
+    <br/>
+    <h2>Availble Shows</h2>
+    <br/>
+    <button class="btn btn-default" id="btnAddProduct">
+        @Html.ActionLink("Add New Show", "Create", new { style = "color:#fff" })
+    </button>
+
+    @*<br />
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for products..">
+        <br />*@
+    <table class="table table-hover table-condensed table-bordered" id="myTable">
+        <thead>
+            <tr>
+                @*<th>
+            @Html.DisplayNameFor(model => model.Admin.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.UserName)
+        </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.ShowImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShowName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShowDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Genre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ChannelName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Channel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AgeRestriction)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.ProductCategory.categoryName)
+            </th>*@
+        <tbody>
+           @foreach (var item in Model)
+           {
+               var base64 = Convert.ToBase64String(item.ShowImage);
+               var Image = string.Format("data:image/png;base64,{0}", base64);
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Admin.userName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.UserName)
+                    </td>*@
+                <td>
+                    <img src="@Image" style="max-height:150px;max-width:150px;" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChannelName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Channel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AgeRestriction)
+                </td>
+                <td>
+                    <ul>
+                        <li>@Html.ActionLink("Edit", "Edit", new { id = item.ShowID })</li>
+                        <li>@Html.ActionLink("Details", "Details", new { id = item.ShowID })</li>
+                        <li>@Html.ActionLink("Delete", "Delete", new { id = item.ShowID })</li>
+                    </ul>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.ShowID }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.ShowID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.ShowID })*@
+                </td>
+            </tr>
+           }
+        </tbody>
+
+    </table>
+</fieldset>
+
+<script src="~/Scripts/jquery.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+
+@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>*@
+
+@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
+    <script src="http://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>*@
+
+<script type="text/javascript">
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>
+
+
+
+
+<script>
+    $("#myTable").DataTable({
+        "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+        "iDisplayLength": 5
+    });
+</script>
+
+
+
+

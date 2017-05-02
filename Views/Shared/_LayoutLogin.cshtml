@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Admin</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+        .text {
+            font: bold 20px arial,verdana;
+            font-size: 20px;
+            margin-left: 30px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top topSection">
+        <div class="">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("DSTV", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "brand" })*@
+                @*<a href="@Url.Action("<Back To Site","Home",new { area = "" })"></a>*@
+                @Html.ActionLink("<Back To Site", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" , style= "color:#0094ff;margin-top:15px" })
+            </div>
+            <div class="navbar-collapse collapse">
+                @*<ul class="nav navbar-nav">
+                    <li class="text"><h1>Admin Dashboard</h1></li>
+                </ul>*@
+                <ul class="nav navbar-nav navbar-right topSection">
+                    @Html.Partial("_LoginPartial")
+                </ul>  
+            </div>
+
+        </div>
+    </div>
+
+    <div class="body-content">
+        @RenderBody()
+        
+        <footer class="text-center nav navbar-fixed-bottom">
+            <hr />
+            <div>
+                <ul class="logo"></ul>
+            </div>
+            <p class="cc">&copy; @DateTime.Now.Year MultiChoice Support Services (Pty) Ltd</p>
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

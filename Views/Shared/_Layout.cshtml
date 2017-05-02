@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - DSTV</title>
+    @Styles.Render("~/Content/css") 
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <style type="text/css">
+       .text {
+           font: bold 20px arial,verdana;
+           margin-left:15px;
+           margin-top:15px;
+       }
+       #myInput {
+           background-image: url('/Images/search.png');
+           background-position: 320px 12px;
+           background-repeat: no-repeat;
+           width: 100%;
+           font-size: 16px;
+           padding: 12px 20px 12px 40px;
+           border: 1px solid #ddd;
+           margin-bottom: 12px;
+       }
+
+   </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top topSection">
+        <div class="">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("DSTV", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "brand" })*@
+                <a href="@Url.Action("Index","Home",new { area = "" })"><img class="brand" /></a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    
+                    <li class="dropdown">
+                        @*<div class="dropdown-toggle text" style="font-size:20px" data-toggle="dropdown">Shows</div>*@
+                          <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("TV Guide", "Index", "Home")</li>
+                            <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li>
+                            </ul>
+                    </li>
+                    <li class="dropdown">
+                        @*<div class="dropdown-toggle text" style="font-size:20px" data-toggle="dropdown">Shows</div>*@
+                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("GET DSTV", "Index", "Home")</li>
+                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
+                    </li>
+                    <li  class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("REWARDS", "Index", "Home")</li>
+                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
+                    </li>
+                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("WATCH", "Index", "Home")</li>
+                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
+                    </li>
+                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("MY DSTV", "Index", "Home")</li>
+                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
+                    </li>
+                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("SUPPORT", "Index", "Home")</li>
+                    @*<li  class="text">@Html.ActionLink("GET DSTV", "Index", "Home")</li>
+                    <li  class="text">@Html.ActionLink("REWARDS", "Index", "Home")</li>
+                    <li  class="text">@Html.ActionLink("WATCH", "Index", "Home")</li>
+                    <li  class="text">@Html.ActionLink("MY DSTV", "About", "Home")</li>
+                    <li  class="text">@Html.ActionLink("SUPPORT", "Contact", "Home")</li>*@
+                </ul>
+                @Html.Partial("_SearchPartial")
+                
+              @*@using (Html.BeginForm())
+                    {
+                        <li class="text">
+                            <input type="text" id="myInput" name="SearchString" onkeyup="myFunction()" style="max-width:100px;" placeholder="Search">
+                        </li>
+                    }*@
+                
+              
+                <ul class="nav navbar-nav navbar-right topSection">
+                   @Html.Partial("_LoginPartial")  
+                </ul>    
+            </div>
+               
+        </div>
+    </div>
+   
+    <div class="body-content">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <div>
+                <ul class="logo"></ul>
+            </div>
+            <p class="cc">&copy; @DateTime.Now.Year MultiChoice Support Services (Pty) Ltd</p>
+           
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

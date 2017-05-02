@@ -1,0 +1,47 @@
+﻿@model DSTVWebApp.Models.Show
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+    .swift{
+        margin-left:20px;
+        margin-top:70px;
+    }
+    .txt{
+        color:#c4c4c4;
+        font:24px arial, verdana;
+    }
+    .rsshare{
+        margin-left:15px;
+    }
+</style>
+
+<section class="swift">
+    <h1 style="color:#45a3f3">@Html.DisplayFor(model => model.ShowName)</h1>
+    <div style="display:inline-block" class="txt">     
+
+        @Html.DisplayFor(model => model.StartDate)
+        | @Html.DisplayFor(model => model.ChannelName)
+        (@Html.DisplayFor(model => model.Channel))
+
+    </div>
+    <br/><br/>
+    @{
+        var base64 = Convert.ToBase64String(Model.ShowImage);
+        var showImage = string.Format("data:image/png;base64,{0}", base64);
+    }
+    <img class="img-responsive" src="@showImage" style="height:700px;width:990px;" />
+    <br/><br />
+    <div>
+        <a href="http://www.facebook.com/share.php" target="_blank"><i class="fa fa-facebook w3-hover w3-large" style="background-color:#2d76c6;color:#ffffff;width:200px"><span class="rsshare">Facebook</span></i></a>
+        <a href="https://twitter.com/share" target="_blank"><i class="fa fa-twitter w3-hover  w3-large" style="width:200px"><span class="rsshare">Twitter</span></i></a>
+        <a href="https://plus.google.com/share" target="_blank"><i class="fa fa-google w3-hover w3-large" style="color:#ffffff;width:200px"><span class="rsshare">Google+</span></i></a>
+    </div>
+    <br/>
+    <div style="display:inline-block">
+        <p style="font:20px arial, verdana;width:920px">@Html.DisplayFor(model => model.ShowDescription)</p>
+    </div>
+      
+   
+</section>

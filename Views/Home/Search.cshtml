@@ -1,0 +1,72 @@
+﻿@model IEnumerable<DSTVWebApp.Models.Show>
+
+@{
+    ViewBag.Title = "Search";
+}
+<br/>
+<br/>
+@if (Session["search"] != null)
+{
+<h2>Search Results...</h2>
+
+<div class="move">
+    <section>
+        <div>
+            
+            @foreach (var item in Model)
+            {
+                <h1><span class=""></span> @item.Category</h1>
+                <div style="display:inline-block">
+                    @{
+                        var base64 = Convert.ToBase64String(item.ShowImage);
+                        var showImage = string.Format("data:image/png;base64,{0}", base64);
+                    }
+                    <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                        <img src="@showImage" style="height:200px;max-width:300px;" />
+                    </a>
+                    <div style="font-size:26px;color:#a8a8a8;margin-bottom:70px">@item.ShowName</div>
+                </div>
+                        }
+        </div>
+    </section>
+    <br />
+    
+</div>
+ }
+
+@if (Session["search"] == null)
+{
+    {
+        <br />
+        <br />
+        <h2>Search Results...</h2>
+        <p>Not found, Please Try again!!</p>
+
+         
+    }
+}
+
+<script type="text/javascript">
+
+                function myFunction() {
+                    // Declare variables
+                    var input, filter, div, tr, td, i;
+                    input = document.getElementById("myInput");
+                    filter = input.value.toUpperCase();
+                    div = document.getElementById("myTable");
+                    tr = table.getElementsByTagName("tr");
+
+                    // Loop through all table rows, and hide those who don't match the search query
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+
+</script>
