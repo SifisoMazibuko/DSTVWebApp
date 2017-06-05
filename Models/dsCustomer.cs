@@ -16,14 +16,14 @@ namespace DSTVWebApp.Models
 
         public int DsCustomerID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Provide Customer Number")]
         [StringLength(10)]
         public string CustomerNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Account holder Surname required")]
         public string accountHolderSurname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Account holder Country required")]
         public string accountHolderCountry { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -5,123 +5,40 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 <br/>
-<h2>Details</h2>
+<h2>Show Details</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Admin.userName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Admin.userName)
-        </dd>*@
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.Customer.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Customer.UserName)
-        </dd>*@
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.ShowImage)
-        </dt>
-
-        <dd>
-            @{
-
-                var base64 = Convert.ToBase64String(Model.ShowImage);
-                var showImage = string.Format("data:image/png;base64,{0}", base64);
-            }
-            <img src="@showImage" style="max-height:200px;max-width:200px;" />
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ShowName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShowName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ShowDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ShowDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Duration)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Duration)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ChannelName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ChannelName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Channel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Channel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AgeRestriction)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AgeRestriction)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ShowID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<section class="col-sm-4">
+    <div>   
+        @{
+            var base64 = Convert.ToBase64String(Model.ShowImage);
+            var showImage = string.Format("data:image/png;base64,{0}", base64);
+        }
+        <img src="@showImage" style="max-height:700px;max-width:800px;" />     
+    </div>
+    <h3>@Html.DisplayFor(model => model.ShowName) </h3>
+    <br/><br/>
+    <p>
+        <div class="glyphicon glyphicon-backward">
+            @Html.ActionLink("Back", "Index")
+        </div>
+       
+    </p>
+</section>
+<div class="col-sm-1"></div>
+<section class="col-sm-6">
+    <div style="font-size:20px">
+        @Html.DisplayFor(model => model.ShowDescription)
+    </div>
+    <br/>
+    <label class="control-label">ChannelName</label>
+    <p>@Html.DisplayFor(model => model.ChannelName) </p>
+    <label class="control-label">Channel</label>
+    <p>@Html.DisplayFor(model => model.Channel) </p>
+    <label class="control-label">Genre</label>
+    <p>@Html.DisplayFor(model => model.Genre) </p>
+    <label class="control-label">Duration</label>
+    <p>@Html.DisplayFor(model => model.Duration) </p>
+    <label class="control-label">Age Restriction:</label>
+    <p>@Html.DisplayFor(model => model.AgeRestriction) </p>
+    
+</section>

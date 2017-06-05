@@ -4,149 +4,192 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
-<br />
-<br />
-<br />
-<br />
-<img class="connectlogo" />
-<br/>
-<br />
-<h2 class="text-center">Log in With Your ConnectID</h2>
+    <style>
+        HTML CSS JS Result Edit on body {
+            padding: 0;
+            margin: 0;
+        }
 
-<div class="container col-sm-offset-5">
-   
-    <br/>
-    @using (Html.BeginForm())
-    {       
-        @Html.AntiForgeryToken()
-        <h3 style="color:#ff0000"><b> @ViewBag.error</b></h3>
-        <div class="form-horizontal">
-            @*<hr />*@
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.CustomerNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CustomerNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CustomerNumber, "", new { @class = "text-danger" })
+        .vid-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bgvid {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+        }
+
+        .inner-container {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: calc(50vh - 200px);
+            left: calc(50vw - 200px);
+            overflow: hidden;
+        }
+
+        .bgvid.inner {
+            top: calc(-50vh + 200px);
+            left: calc(-50vw + 200px);
+            filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+            -webkit-filter: blur(10px);
+            -ms-filter: blur(10px);
+            -o-filter: blur(10px);
+            filter: blur(10px);
+        }
+
+        .box {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            background: rgba(0,0,0,0.13);
+            padding: 30px 0px;
+        }
+
+            .box h1 {
+                text-align: center;
+                margin: 30px 0;
+                font-size: 30px;
+            }
+
+            .box input {
+                display: block;
+                width: 300px;
+                margin: 20px auto;
+                padding: 15px;
+                background: rgba(0,0,0,0.2);
+                color: #fff;
+                font-size: 20px;
+                border: 0;
+            }
+
+                .box input:focus, .box input:active, .box button:focus, .box button:active {
+                    outline: none;
+                }
+
+            .box button {
+                background: #2ecc71;
+                border: 0;
+                color: #fff;
+                padding: 10px;
+                font-size: 20px;
+                width: 330px;
+                margin: 20px auto;
+                display: block;
+                cursor: pointer;
+            }
+
+                .box button:active {
+                    background: #27ae60;
+                }
+
+            .box p {
+                font-size: 18px;
+                text-align: center;
+                color:#fff;
+            }
+
+                .box p span {
+                    cursor: pointer;
+                    color: #fff;
+                }
+    </style>
+</head>
+<body>
+    @*<br />
+    <br />
+    <br />
+    <br />
+    <img class="connectlogo" />
+    <br />
+    <br />
+    <h2 class="col-sm-offset-4"><b>Please Provide Information</b></h2>
+
+    <div class="container col-sm-offset-4 box">
+
+        <br />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <h3 style="color:#ff0000"><b> @ViewBag.Message</b></h3>
+            <div class="form-horizontal">
+                @*<hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              
+                <div class="form-group">
+                   
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", style = "font-size:20px;height:50px;width:50%;border:none;border-bottom:1px solid lightgray;", placeholder = "Email Address" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.SmartCardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SmartCardNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SmartCardNumber, "", new { @class = "text-danger" })
+                    <div class="col-sm-12">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;width:50%;border:none;border-bottom:1px solid lightgray;", placeholder = "Password", type = "password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
-                </div>
-
+                </div><br />
+                <div class="col-sm-offset-4" style="color:#0094ff">
+                    @Html.ActionLink("Forgot Password", "ForgotPassword")
+                </div><br />
                 <div class="form-group">
-                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    <div class="col-sm-12">
+                        <input type="submit" value="Log In" class="btn btn-lg btn-primary" style="width:50%" />
                     </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SurName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SurName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SurName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
-            <div class="form-group">
-                @*@Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                <div class="col-sm-10">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Email Address" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                 </div>
             </div>
+        }
 
-            <div class="form-group">
-                @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                <div class="col-sm-10">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Password" , type = "password" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+    </div>
+    <br />
+    @*<div class="container col-sm-offset-5" style="display:inline-block;margin-left:860px;margin-right:200px">
+            <p>or Log in using</p>
+            <img class="yahoo" />
+            <img class="google" />
+            <img class="facebook" />
+        </div>*@
+    @*<br />
+    <br />*@
+    @*<div style="border-bottom:1px dashed;width:50%" >
+
+        </div>*@
+    @*<div class="text-center" style="color:#0094ff">
+            @Html.ActionLink("Back", "Index")
+        </div>*@
+    @*<div class="col-sm-offset-4" >
+        @Html.ActionLink("Don't have ConnectID? Register", "Register")
+    </div>*@
+
+    <div class="vid-container">
+        <video class="bgvid" autoplay="autoplay" muted="muted" preload="auto" loop>
+            <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
+        </video>
+        <div class="inner-container">
+            <video class="bgvid inner" autoplay="autoplay" muted="muted" preload="auto" loop>
+                <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
+            </video>
+            <form method="post" action="Login"> 
+                <div class="box">
+                    <h1>Login</h1>
+                    <input type="text" name="Email" placeholder="Email Address" required/>
+                    <input type="password" name="Password" placeholder="Password" required/>
+                    <button type="submit">Login</button>
+                    <p><span">@Html.ActionLink("New? Register", "Register")</span></p>
                 </div>
-            </div><br/>
-            <div class="col-sm-offset-2" style="color:#0094ff">
-                @Html.ActionLink("Forgot Password","Account")
-            </div><br/>
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <input type="submit" value="Log In" class="btn btn-lg btn-primary" style="width:100%" />
-                </div>
-            </div>
+            </form>
+            
         </div>
-    }
-
-    
-</div>
-<br/>
-<div class="container col-sm-offset-5" style="display:inline-block;margin-left:860px;margin-right:200px">
-    <p>or Log in using</p>
-    <img class="yahoo" />
-    <img class="google" />
-    <img class="facebook" />
-</div>
-<br/>
-<br/>
-@*<div style="border-bottom:1px dashed;width:50%" >
-
-</div>*@
-@*<div class="text-center" style="color:#0094ff">
-    @Html.ActionLink("Back", "Index")
-</div>*@
-<div class="text-center">
-    @Html.ActionLink("Don't have ConnectID? Register", "Register")
-</div>
+    </div>
+</body>

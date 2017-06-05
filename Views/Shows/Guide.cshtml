@@ -1,0 +1,142 @@
+﻿@model IEnumerable<DSTVWebApp.Models.Show>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <!-- Bootstrap -->
+    <link href="./Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="./Content/stylesheet.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        #myInput {
+            background-image: url('/Images/search.png');
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #btnAddProduct {
+            margin-bottom: 5px;
+        }
+        .container1 {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .table{
+            height:500px;
+            background-color:#d5d5d5;
+        }
+    </style>
+</head><br/>
+<h1 style="color:#286eff">What's On Schedule</h1>
+<body class="container1">
+    <div class="pull-right">
+        <h3 class="glyphicon glyphicon-list-alt"><a href="@Url.Action("Guide", new { controller="Shows"})">Grid</a></h3>
+        <h3 class="glyphicon glyphicon-list"><a href="@Url.Action("List", new { controller="Shows"})">List</a></h3>       
+    </div>
+    <br/>
+    <br/>
+    <table class="table table-hover table-condensed table-responsive" id="myTable">
+        <thead style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-size:24px">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Channel)
+                </th>                
+                <th>
+                    <label class="control-label">Show Name</label>
+                </th>
+                <th>
+                    <label class="control-label">Start Date</label>
+                </th>
+                <th>
+                    <label class="control-label">End Date</label>
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duration)
+                </th>
+                <th>
+                    <label class="control-label">Channel</label>
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody style="font-size:22px">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Channel)
+                    </td>                    
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ShowName)
+                    </td>
+                    <td>
+                        @item.StartDate.ToString("ddd d MMM hh:mm")
+                    </td>
+                    <td>
+                        @item.EndDate.ToString("ddd d MMM hh:mm")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChannelName)
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</body>
+
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+</script>
+
+
+<script>
+    $("#myTable").DataTable({
+        "aLengthMenu": [[5, 10, 25, -1], [5, 10, 25, "All"]],
+        "iDisplayLength": 5
+    });
+</script>
+
+
+
+

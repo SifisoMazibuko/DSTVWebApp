@@ -18,7 +18,13 @@ namespace DSTVWebApp.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(db.Customers.ToList());
+            var customer = (from c in db.Customers
+                            select c).ToList();
+            foreach (var item in customer)
+            {
+                Session["customerCount"] = customer.Count;
+            }
+            return View(customer.ToList());
         }
 
         // GET: Customers/Details/5

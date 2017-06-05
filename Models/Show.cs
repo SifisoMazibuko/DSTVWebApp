@@ -35,7 +35,7 @@ namespace DSTVWebApp.Models
 
         public int Channel { get; set; }
 
-        public int AgeRestriction { get; set; }
+        public string AgeRestriction { get; set; }
 
         public int? Admin_adminID { get; set; }
 

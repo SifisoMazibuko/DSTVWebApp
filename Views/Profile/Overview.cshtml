@@ -1,110 +1,212 @@
-﻿
+﻿@model DSTVWebApp.Models.Customer
+
 @{
     ViewBag.Title = "Overview";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<style type="text/css">
-    .tabs {
-        background: none;
-        font-size: 1.0625rem;
-        padding: 4px 0 50px;
-        position: relative;
-        width: 100%;
-        box-shadow: none;
-        border-bottom: 1px solid #eaeaea;
-    }
 
-        .tabs > li {
-            float: left;
-            margin-bottom: -1px;
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .vid-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
         }
 
-            .tabs > li > a {
-                margin-right: 2px;
+        .bgvid {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+        }
+
+        .inner-container {
+            width: 400px;
+            height: 1000px;
+            position: absolute;
+            overflow: hidden;
+            margin-top: 55px;
+            left: calc(50vw - 200px);
+        }
+
+        .bgvid.inner {
+            top: calc(-50vh + 200px);
+            left: calc(-50vw + 200px);
+            filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+            -webkit-filter: blur(10px);
+            -ms-filter: blur(10px);
+            -o-filter: blur(10px);
+            filter: blur(10px);
+        }
+
+        .box {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            background: rgba(0,0,0,0.13);
+        }
+
+            .box h1 {
+                text-align: center;
+                margin: 30px 0;
+                font-size: 30px;
             }
 
-            .tabs > li.active > a,
-            .tabs > li.active > a:hover,
-            .tabs > li.active > a:focus {
-                color: #555555;
-                cursor: default;
-                /*background-color: #eeeeee;
-            border: 1px solid #dddddd;
-            border-bottom-color: transparent;*/
+            .box input {
+                display: block;
+                width: 350px;
+                margin: 20px auto;
+                padding: 15px;
+                background: rgba(0,0,0,0.2);
+                color: #fff;
+                font-size: 20px;
+                border: 0;
             }
-</style>
 
-<br />
-<br/>
+                .box input:focus, .box input:active, .box button:focus, .box button:active {
+                    outline: none;
+                }
 
-@*<div class="container">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#MyProfile">My Profile</a></li>
-        <li><a data-toggle="tab" href="#">My DSTV</a></li>
-        <li><a data-toggle="tab" href="#">My Newsletters</a></li>
-    </ul>
-    <div class="tab-content" style="margin-left:70px">
-        <div id="MyProfile" class="tab-pane fade in active">
-            <div class="has-error">
-                <a href="javascript:void(0)" id="avatar-link">Add profile image</a>
+            .box button {
+                background: #2ecc71;
+                border: 0;
+                color: #fff;
+                padding: 10px;
+                font-size: 20px;
+                width: 330px;
+                margin: 20px auto;
+                display: block;
+                cursor: pointer;
+            }
 
-                <label for="avatar-link">
-                    Add profile image
-                    <input type="file" name="file">
-                </label>
+                .box button:active {
+                    background: #27ae60;
+                }
+
+            .box p {
+                font-size: 18px;
+                text-align: center;
+                color: #fff;
+            }
+
+                .box p span {
+                    cursor: pointer;
+                    color: #fff;
+                }
+    </style>
+</head>
+<body>
+    <div class="vid-container">
+        @*<video class="bgvid" autoplay="autoplay" muted="muted" preload="auto" loop>
+            <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
+        </video>*@
+        <div class="inner-container">
+            @*<video class="bgvid inner" autoplay="autoplay" muted="muted" preload="auto" loop>
+                <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
+            </video>*@
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+              @Html.HiddenFor(model => model.CustomerID)
+             @*<form method="get" action="Overview">*@
+            <input type="hidden" name="CustomerID" value="" />
+            <div class="box">
+                <h1>Update</h1>
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class= "textbx txt", placeholder = "Username" } })
+                @*<input type="text" name="UserName" placeholder="Username" required />*@
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "textbx txt", placeholder = "FirstName" } })
+                @*<input type="text" name="FirstName" placeholder="Firstname" required />*@
+                @Html.EditorFor(model => model.SurName, new { htmlAttributes = new { @class = "textbx txt", placeholder = "Surname" } })
+                @*<input type="text" name="SurName" placeholder="Surname" required />*@
+                <select style="margin-left:25px;height:45px;width:87%" data-val="true" data-val-required="The gender is required." id="Gender" name="Gender" class="valid">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <input type="date" name="DOB" />
+
+                <select style="margin-left:25px;height:45px;width:87%" data-val="true" data-val-required="The country is required." id="Country" name="Country" class="valid">
+                    <option value="Algeria">Algeria</option>
+                    <option value="Angola">Angola</option>
+                    <option value="Benin">Benin</option>
+                    <option value="Botswana">Botswana</option>
+                    <option value="Burkina Faso">Burkina Faso</option>
+                    <option value="Burundi">Burundi</option>
+                    <option value="Cameroon">Cameroon</option>
+                    <option value="Cape Verde">Cape Verde</option>
+                    <option value="Central African Republic">Central African Republic</option>
+                    <option value="Chad">Chad</option>
+                    <option value="Comoros">Comoros</option>
+                    <option value="DRC">DRC</option>
+                    <option value="Djibouti">Djibouti</option>
+                    <option value="Equatorial Guinea">Equatorial Guinea</option>
+                    <option value="Eritrea">Eritrea</option>
+                    <option value="Ethiopia">Ethiopia</option>
+                    <option value="Gabon">Gabon</option>
+                    <option value="Gambia">Gambia</option>
+                    <option value="Ghana">Ghana</option>
+                    <option value="Guinea">Guinea</option>
+                    <option value="Guinea-Bissau">Guinea-Bissau</option>
+                    <option value="Ivory Coast">Ivory Coast</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Lesotho">Lesotho</option>
+                    <option value="Liberia">Liberia</option>
+                    <option value="Madagascar">Madagascar</option>
+                    <option value="Malawi">Malawi</option>
+                    <option value="Mali">Mali</option>
+                    <option value="Mauritania">Mauritania</option>
+                    <option value="Mauritius">Mauritius</option>
+                    <option value="Mayotte">Mayotte</option>
+                    <option value="Mozambique">Mozambique</option>
+                    <option value="Namibia">Namibia</option>
+                    <option value="Niger">Niger</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Republic of the Congo">Republic of the Congo</option>
+                    <option value="Rwanda">Rwanda</option>
+                    <option value="RÃ©union">RÃ©union</option>
+                    <option value="Saint Helena">Saint Helena</option>
+                    <option value="Senegal">Senegal</option>
+                    <option value="Seychelles">Seychelles</option>
+                    <option value="Sierra Leone">Sierra Leone</option>
+                    <option value="Somalia">Somalia</option>
+                    <option selected="selected" value="South Africa">South Africa</option>
+                    <option value="Sudan">Sudan</option>
+                    <option value="Swaziland">Swaziland</option>
+                    <option value="Tanzania">Tanzania</option>
+                    <option value="Togo">Togo</option>
+                    <option value="Uganda">Uganda</option>
+                    <option value="Zambia">Zambia</option>
+                    <option value="Zimbabwe">Zimbabwe</option>
+                </select><br /><br />
+                <select name="Province" style="margin-left:25px;height:45px;width:87%">
+                    <option value="M-Net">Free State</option>
+                    <option selected="selected" value="M-Net">Gauteng</option>
+                    <option value="M-Net">Limpopo</option>
+                    <option value="M-Net">Kwazulu-Natal</option>
+                    <option value="M-Net">North-West</option>
+                    <option value="M-Net">Eastern Cape</option>
+                    <option value="M-Net">Mpumalanga</option>
+                    <option value="M-Net">Western Cape</option>
+                    <option value="M-Net">Northern Cape</option>
+
+                </select>
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "textbx txt", placeholder = "Phone" } })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "textbx txt", placeholder = "Email" } })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "textbx txt", placeholder = "passsword" } })
+                
+                @*<input type="text" name="Phone" placeholder="Phone" required />
+                <input type="text" name="Email" placeholder="Email" required />
+                <input type="password" name="Password" placeholder="Password" required />*@
+                <button type="submit">Save Changes</button>
             </div>
-        </div>
-        <div id="MyDSTV" class="tab-pane fade">
-
-        </div>
-        <div id="MyNewsletters" class="tab-pane fade">
-
-        </div>
+        @*</form>*@
+        }
     </div>
-</div>*@
-
-
-@*<div class="container">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#MyProfile"><b style="color:#1f82fc">My Profile</b></a></li>
-        <li><a data-toggle="tab" href="#MyDSTV"><b style="color:#1f82fc">My DSTV</b></a></li>
-        <li><a data-toggle="tab" href="#MyNewsletters"><b style="color:#1f82fc">My Newsletters</b></a></li>
-    </ul>
-
-    <div class="tab-content" style="margin-left:70px">
-        <div id="MyProfile" class="tab-pane fade in active">
-            <div class="has-error">
-                <a href="javascript:void(0)" id="avatar-link">Add profile image</a>
-
-                <label for="avatar-link">
-                    Add profile image
-                    <input type="file" name="file">
-                </label>
-                <div class="row">
-
-                </div>
-            </div>
-            </div>
-        <div id="MyDSTV" class="tab-pane fade in active">
-        </div>
-        <div id="MyNewsletters" class="tab-pane fade in active">
-        </div>
-        </div>
-    </div>*@
-
-
-
-<div class="container">
-    <div class="panel-group">
-        <div class="panel">
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-edit"></span>
-            </div>
-            <div class="panel-body">
-
-            </div>
-            
-        </div>
     </div>
-</div>
-
+</body>

@@ -17,11 +17,19 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
+
+/*.brand {
+    position: relative;
+    border: none;
+    height: 75px;
+    width: 199px;
+    background-image: url('../Images/DSLogo.PNG');
+}*/
 
 .logo {
     position: relative;
@@ -111,14 +119,6 @@ textarea {
     padding-right: 5px;
     margin-left: 0px;
     margin-right: 0px;
-}
-
-.brand {
-    position: relative;
-    border: none;
-    height: 75px;
-    width: 199px;
-    background-image: url('../Images/DSLogo.PNG');
 }
 
 /*Social Network*/

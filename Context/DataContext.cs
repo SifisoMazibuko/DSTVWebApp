@@ -29,7 +29,15 @@ namespace DSTVWebApp.Context
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Show> Shows { get; set; }
+        public virtual DbSet<Subscribe> Subscribes { get; set; }
+        public virtual DbSet<FixEnquire> FixEnquires { get; set; }
+        public virtual DbSet<Billing> Billings { get; set; }
+
+
 
         public System.Data.Entity.DbSet<DSTVWebApp.Models.RegisterFlow> RegisterFlows { get; set; }
+
+        public System.Data.Entity.DbSet<DSTVWebApp.Models.Rewards> Rewards { get; set; }
+        public System.Data.Entity.DbSet<DSTVWebApp.Models.SupportQuery> SupportQuerys { get; set; }
     }
 }

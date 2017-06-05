@@ -4,57 +4,85 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Admin</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Styles.Render("~/Content/css")*@
+        @Scripts.Render("~/bundles/modernizr")
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style type="text/css">
         .text {
             font: bold 20px arial,verdana;
-            font-size:20px;
-            margin-left: 30px;
-            margin-top: 15px;
+            font-size: 20px;
+            margin-right:150px;
+            /*margin-left: 30px;*/
+            /*margin-top: 15px;*/
         }
     </style>
 </head>
 <body>
     <div class="navbar navbar-default navbar-fixed-top topSection">
-        <div class="">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                @*@Html.ActionLink("DSTV", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "brand" })*@
-                <a href="@Url.Action("Index","Home",new { area = "" })"><img class="brand" /></a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="text"><h1>Admin Dashboard</h1></li>
-                </ul>
-                
-            </div>
-
+                </button>               
+                @*<a class="text" href="@Url.Action("Index","Shows",new { area = "" })">Admin</a>*@
+            </div>           
         </div>
-    </div>
-
-    <div class="body-content">
-        @RenderBody()
-        <hr />
-        <footer class="text-center">
-            <div>
-                <ul class="logo"></ul>
+            <div class="navbar-collapse collapse nav navbar-nav navbar-right">
+                @*<ul class="nav navbar-nav navbar-left">
+                    <li class="text"><h1>Admin Dashboard</h1></li>
+                </ul>*@
+                @Html.Partial("_AdminLoginPartial")
             </div>
-            <p class="cc">&copy; @DateTime.Now.Year MultiChoice Support Services (Pty) Ltd</p>
+        </div>       
 
-        </footer>
-    </div>
+        <style>
+            #leftPanel {
+                position: relative;
+                height: 1200px;
+                width:280px;
+                background-color: #dddddd;
+                border: 0px solid;
+                margin-left: 10px;
+                padding-top: 90px;
+                padding-bottom: 20 px;
+            }
+            #rightPanel {
+                position: relative;
+                border: 0px solid;
+                height: 1200px;
+                width: 1550px;
+            }
+        </style>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        <div>
+            <div class="col-sm-1 panel-body" id="leftPanel">
+                <p><h2 style="color:#0094ff"><i class="glyphicon glyphicon-asterisk"></i>@Html.ActionLink(" Shows ("+Convert.ToInt32(Session["showCount"])+")", "Index", "Shows")</h2></p>
+                <p><h2 style="color:#0094ff"><i class="glyphicon glyphicon-user"></i>@Html.ActionLink(" Customers (" + Convert.ToInt32(Session["customerCount"]) + ")", "Index", "Customers")</h2></p>
+                <p><h2 style="color:#0094ff"><i class="glyphicon glyphicon-list"></i>@Html.ActionLink(" Subscribers (" + Convert.ToInt32(Session["subscribersCount"]) + ")", "Index", "Subscribes")</h2></p>
+                <p><h2 style="font-size:27px;color:#0094ff"><i class="glyphicon glyphicon-list"></i>@Html.ActionLink(" Competitions (" + Convert.ToInt32(Session["RewardsCount"]) + ")", "Index", "Rewards")</h2></p>
+            </div>
+
+            <div class="col-lg-10" style="padding-top:90px;">
+                @RenderBody()
+            </div>
+        </div>
+
+        <div class="body-content">
+            <hr />
+            <footer class="text-center nav navbar-fixed-bottom">
+                <p>&copy; @DateTime.Now.Year Admin Dashboard (Pty) Ltd</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,27 @@
+﻿<style>
+    #myD {
+        width: 250px;
+    }
+</style>
+<div class="container">
+    <li class="dropdown">
+        <div class="dropdown-toggle" style="font-size:20px" data-toggle="dropdown"><div  id="status"></div>  <img src="~/Images/profile.png" height="30" width="30" /><b class="caret"></b></div>
+
+        <ul class="dropdown-menu" id="myD">
+            @*<iframe id="upload" name="upload" height="100" width="150" src="javascript:false;">
+                <img src="~/Images/profile.png" height="106" width="106" /></iframe>*@
+
+            <img src="~/Images/profile.png" height="106" width="106" />
+            <p style="font-size:20px">@Session["username"]</p>
+            <div style="font-size:20px" id="status">
+            </div>
+            <li style="font-size:20px"><a href="@Url.Action("Login", "Account", new { id = 1 })">My Profile</a></li>
+            <li style="font-size:20px"><a href="@Url.Action("MyDstv", "Payment", new { id = 1 })">My DSTV</a></li>
+            <li style="font-size:20px"><a href="@Url.Action("Login", "Account", new { id = 1 })">My Newsletters</a></li>
+            @*<li><a href="@Url.Action("Login", "Account", new { id = 1 })">Logout</a></li>*@
+            <li style="color:#ffffff;font-size:30px;">@Html.ActionLink("Logout", "Logout", new { controller = "Account" }, new { @class = "text-center btn-lg btn-primary", style = "color:white;height:40px;width:220px; margin-left:10px; margin-right:10px" })</li>
+            @*<input type="button" name="name" value="Logout" class="btn btn-primary" style="width:100%" />*@
+        </ul>
+    </li>
+</div>
+<br />

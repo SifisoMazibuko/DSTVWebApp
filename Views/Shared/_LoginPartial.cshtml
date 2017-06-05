@@ -1,59 +1,209 @@
-﻿@*<br />
-<div class="loginbox">
-    <ul>
-        <li class="dropdown">
-            <div class="dropdown-toggle" data-toggle="dropdown">Login<b class="caret"></b></div>
-            <ul class="dropdown-menu">
-                <li><a href="@Url.Action("Login With Connect", "Home", new { id = 1 })">Login With Connect</a></li>
-                <li><a href="https://www.facebook.com/profile.php?id=100007682088283"><i class="fa fa-facebook-official w3-hover-text-indigo w3-large"></i></a></li>
-                <li><a href="@Url.Action("New to Connect? Register", "Home", new { id = 1 })">New to Connect? Register</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>*@
-@*<br/>
-<div class="container">
-        <li class="dropdown">
-            <div class="dropdown-toggle TextSize" data-toggle="dropdown">Login <img class="connect"/><b class="caret"></b></div>
-            
-            <ul class="dropdown-menu">
-                <li><a href="@Url.Action("Login", "Account", new { id = 1 })">Login With Connect</a></li>
-                <hr/>
-                <li style="display:inline-block; margin-left:40px;margin-right:35px">
-                    <img class="yahoo" />
-                    <img class="google" />
-                    <img class="facebook" />
-                </li>
-                
-                <hr />
-                <li><a href="@Url.Action("Register", "Account", new { id = 1 })">New to Connect? Register</a></li>
-            </ul>
-        </li>
-</div>
-<br />*@
-<style>
-    #myD {
-        width: 250px;
-    }
-</style>
-@if (Session["username"] != null)
+﻿@model DSTVWebApp.Models.Show
+@using DSTVWebApp.Context;
+
+<head>
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <style>
+        #myD {
+            width: 340px;
+            height: 140px;
+        }
+
+        .bigprofile {
+            height: 80px;
+            max-width: 100px;
+            /*border-radius:50%;*/
+            margin-left: 10px;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .smallprofile {
+            height: 30px;
+            max-width: 30px;
+            border-radius: 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+    </style>
+</head>
+
+<script>
+    var tempSessionID = "";
+      // This is called with the results from from FB.getLoginStatus().
+      function statusChangeCallback(response) {
+          console.log('statusChangeCallback');
+          console.log(response);
+          // The response object is returned with a status field that lets the
+          // app know the current login status of the person.
+          // Full docs on the response object can be found in the documentation
+          // for FB.getLoginStatus().
+          if (response.status === 'connected') {
+              // Logged into your app and Facebook.
+              tempSessionID = 'yes';
+
+              //alert("Innnnnn");
+              //alert("session id is: " + tempSessionID);
+              //$("#mySess").val(tempSessionID);
+              testAPI();
+          } else {
+              // The person is not logged into your app or we are unable to tell.
+              tempSessionID = "";
+              //alert("Outttttttt");
+              //alert("session id is: " + tempSessionID);
+             
+              document.getElementById('status').innerHTML = ' ';
+          }
+          $("#mySess").val(tempSessionID);
+      }
+
+      // This function is called when someone finishes with the Login
+      // Button.  See the onlogin handler attached to it in the sample
+      // code below.
+      function checkLoginState() {
+          FB.getLoginStatus(function (response) {
+              statusChangeCallback(response);
+
+          });
+      }
+
+      window.fbAsyncInit = function () {
+          FB.init({
+              appId: '1531200290258664',
+              cookie: true,  // enable cookies to allow the server to access
+              // the session
+              xfbml: true,  // parse social plugins on this page
+              version: 'v2.8' // use graph api version 2.8
+          });
+
+          // Now that we've initialized the JavaScript SDK, we call
+          // FB.getLoginStatus().  This function gets the state of the
+          // person visiting this page and can return one of three states to
+          // the callback you provide.  They can be:
+          //
+          // 1. Logged into your app ('connected')
+          // 2. Logged into Facebook, but not your app ('not_authorized')
+          // 3. Not logged into Facebook and can't tell if they are logged into
+          //    your app or not.
+          //
+          // These three cases are handled in the callback function.
+
+          FB.getLoginStatus(function (response) {
+              statusChangeCallback(response);
+          });
+
+      };
+
+      // Load the SDK asynchronously
+      (function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+      // Here we run a very simple test of the Graph API after login is
+      // successful.  See statusChangeCallback() for when this call is made.
+      function testAPI() {
+          console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me', function (response) {
+              console.log('Successful login for: ' + response.name);
+              document.getElementById('status').innerHTML =
+                  ' ' + response.name + '!';
+          });
+      }
+</script>
+
+
+
+@if (Session["username"] != null @*|| !string.IsNullOrEmpty(Html.Hidden("mySess").ToString())*@)
 {
     <br />
     <div class="container">
         <li class="dropdown">
-            <div class="dropdown-toggle" style="font-size:20px" data-toggle="dropdown">@Session["username"]   <img src="~/Images/profile.png" height="30" width="30" /><b class="caret"></b></div>
+            <div class="dropdown-toggle" style="font-size:20px" data-toggle="dropdown"> @Session["username"]@*<img src="~/Images/profile.png" height="30" width="30" />*@
+            
+                @*@foreach (var item in ViewBag.pp)
+                {*@
+                    <div style="display:inline-block">
+                        @{
+                            var ProfileImage = "";
+                            try
+                            {
+                                var base64 = Convert.ToBase64String(ViewBag.profilePic);
+                                 ProfileImage = string.Format("data:image/png;base64,{0}", base64);
+                            }
+                            catch (Exception ex)
+                            {
 
-            <ul class="dropdown-menu" id="myD">
-                @*<iframe id="upload" name="upload" height="100" width="150" src="javascript:false;">
-                    <img src="~/Images/profile.png" height="106" width="106" /></iframe>*@
 
-                <img src="~/Images/profile.png" height="106" width="106"/>
-                <p style="font-size:20px">@Session["username"]</p>
-                <li style="font-size:20px"><a href="@Url.Action("Login", "Account", new { id = 1 })">My Profile</a></li>
-                <li style="font-size:20px"><a href="@Url.Action("Register", "Account", new { id = 1 })">My DSTV</a></li>
-                <li style="font-size:20px"><a href="@Url.Action("Login", "Account", new { id = 1 })">My Newsletters</a></li>
+                            }
+
+                        }
+                        
+                        <img src="@ProfileImage" class="smallprofile" />
+
+
+                    </div>
+                @*}*@          
+            <b class="caret"></b></div>
+
+            <ul class="dropdown-menu">
+
+                @*<img src="~/Images/profile.png" height="106" width="106"/>*@
+
+                @*@foreach (var item in ViewBag.pp)
+                {*@
+                    <div style="display:inline-block">
+                        @{
+                            var ProfileImageB = "";
+
+                            try
+                            {
+                                var base64B = Convert.ToBase64String(ViewBag.profilePic);
+                                ProfileImageB = string.Format("data:image/png;base64,{0}", base64B);
+                            }
+                            catch (Exception ex)
+                            {                                
+                            }
+
+                        }
+
+                        <div>
+                            <img src="@ProfileImageB" id="mn" class="bigprofile"><br/><br/>
+                            @*<ul class="dropdown-menu" role="menu" aria-labelledby="mn">
+                                <li role="presentation"><input type="file" /></li>
+                            </ul>*@
+
+                            @*<div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">
+                                    Dropdown Example
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation"><input type="file" /></li>
+
+                                </ul>
+                            </div>*@
+                            
+                          </div>     
+                    </div>
+                 @*}*@
+
+                <p style="background-color:#00ffff;font-size:20px;margin-left:10px">Welcome back @Session["username"]</p>
+                @*<div style="font-size:20px" id="status">
+                </div>*@
+                <li style="font-size:20px"><a href="@Url.Action("Overview", new { controller = "Profile", id = Convert.ToInt32(Session["userID"]) })">My Profile</a></li>
+                <li style="font-size:20px"><a href="@Url.Action("MyDstv",new { controller = "Payment"})">My DSTV</a></li>
+                <li style="font-size:20px"><a href="@Url.Action("Subscribe", "Shows")">My Newsletters</a></li>
                 @*<li><a href="@Url.Action("Login", "Account", new { id = 1 })">Logout</a></li>*@
-                <li style="color:#ffffff;font-size:30px;">@Html.ActionLink("Logout", "Logout", new { controller = "Account" }, new { @class = "text-center btn-lg btn-primary", style= "color:white;height:40px;width:220px; margin-left:10px; margin-right:10px" })</li>
+                <li data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="true" style="color:#ffffff;font-size:30px;">@Html.ActionLink("Logout", "Logout", new { controller = "Account" }, new { @class = "text-center btn-lg btn-primary", style= "color:white;height:40px;width:220px; margin-left:10px; margin-right:10px" })</li>
                 @*<input type="button" name="name" value="Logout" class="btn btn-primary" style="width:100%" />*@
             </ul>
         </li>
@@ -65,21 +215,46 @@ else
     <br />
     <div class="container">
         <li class="dropdown">
-            <div class="dropdown-toggle"  style="font-size:20px" data-toggle="dropdown">Login <img class="connect" /><b class="caret"></b></div>
+            <div class="dropdown-toggle"  style="font-size:20px" data-toggle="dropdown">MENU <img class="connect" /><b class="caret"></b></div>
 
             <ul class="dropdown-menu" id="myD">
-                <li style="font-size:20px"><a href="@Url.Action("Login", "Account", new { id = 1 })">Login With Connect</a></li>
-                <hr />
-                <li style="display:inline-block; margin-left:40px;margin-right:35px">
-                    <img class="yahoo" />
-                    <img class="google" />
-                    <img class="facebook" />
-                </li>
-
-                <hr />
-                <li style="font-size:17px"><a href="@Url.Action("Register", "Account", new { id = 1 })">New to Connect? Register</a></li>
+                <li style="font-size:20px"><a href="@Url.Action("Login", "Account", new { id = 1 })">Login</a></li>
+                   <hr/>
+                <li style="font-size:20px"><a href="@Url.Action("Register", "Account", new { id = 1 })">New? Register</a></li>
             </ul>
         </li>
     </div>
     <br />
 }
+
+
+
+<script>
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '1531200290258664',
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+          };
+
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div id="fb-root"></div>
+<script>
+(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=1531200290258664";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>

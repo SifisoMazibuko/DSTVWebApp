@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Fix";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Fix</h2>
+
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .col-lg-6{
+            margin-top:50px;
+        }
+        .col-lg-6 input {
+            display: block;
+            height: 40px;
+            width: 741px;
+            font-size: 20px;
+        }
+        .col-lg-6 h1{
+            color:#0094ff;
+        }
+        .col-lg-6 button {
+            border: 0;
+            color: #0094ff;
+            font-size: 20px;
+            width: 300px;
+            /*margin-left:100px;*/
+            margin: 20px 445px auto;
+            display: block;
+            cursor: pointer;
+        }
+        .ErrImage {
+            position: absolute;
+            background-image: url("/Images/fix.PNG");
+            background-repeat:no-repeat;
+            /*background-size:cover;*/
+            height: 800px;
+            width: 200%;
+        }
+        #left{
+            margin-left:15px;
+        }
+    </style>
+     <style>
+        .change{
+            margin-top:500px;
+            resize:both;
+        }        
+        .Fix {
+            position: relative;
+            background-image: url("/Images/fixerror.png");
+            height: 173px;
+            width: 226px;
+        }
+        .Pay {
+            position: relative;
+            background-image: url("/Images/howTopay.png");
+            height: 173px;
+            width: 226px;
+        }
+        .MakePayment {
+            position: relative;
+            background-image: url("/Images/makeApayment.png");
+            height: 173px;
+            width: 226px;
+        }
+        .Account {
+            position: relative;
+            background-image: url("/Images/MyAccount.png");
+            height: 173px;
+            width: 226px;
+        }    
+        .col-lg-6 p{
+            font-size:20px;
+        }
+    </style>
+</head>
+<body id="left">
+    <section class="col-lg-6">
+        <h1>Fix Errors</h1>
+        <p>Easily fix common errors on your DStv device. Please remember to make sure that your CustomerNumber is inserted and your decoder is powered on when fixing errors.</p>
+        <form action="Fix" method="post">
+            <input type="text" name="CustomerNumber" placeholder="Customer Number" required />
+            <br />
+            <select name="ErrorCode" style="height:40px;width:80%">
+                <option value="E12">E12</option>
+                <option value="E12">E32</option>
+                <option value="E12">E42</option>
+            </select>
+            <button type="submit">Fix Error <span class="glyphicon glyphicon-forward"></span></button>
+            <p style="color:#ff0000">@ViewBag.Message</p>
+        </form>
+       
+    </section>
+    <section class="col-lg-6">
+        <div class="ErrImage"></div>
+    </section>
+
+    <div class="change">
+        <div class="col-md-3">
+            <a href="@Url.Action("Fix","SelfService")"><p class="img-rounded Fix"></p></a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Support", "Support")"><p class="img-rounded Pay"></p></a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("MakePayment","SelfService")"><p class="img-rounded MakePayment"></p></a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action(" "," ")"><p class="img-rounded Account"></p></a>
+        </div>
+    </div>
+</body>
+

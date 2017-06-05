@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "SelfService";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SelfService</h2>
+
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .change{
+            margin-top:100px;
+            margin-left:110px;
+            resize:both;
+        }
+        .Fix {
+            position: relative;
+            background-image: url("/Images/fixerror.png");
+            background-repeat: no-repeat;
+            height: 173px;
+            width: 226px;
+        }
+        .Pay {
+            position: relative;
+            background-image: url("/Images/howTopay.png");
+            background-repeat: no-repeat;
+            height: 173px;
+            width: 226px;
+        }
+        .MakePayment {
+            position: relative;
+            background-image: url("/Images/makeApayment.png");
+            background-repeat: no-repeat;
+            height: 173px;
+            width: 226px;
+        }
+        .Account {
+            position: relative;
+            background-image: url("/Images/MyAccount.png");
+            background-repeat: no-repeat;
+            height: 173px;
+            width: 226px;
+        }       
+    </style>
+</head>
+
+<body>
+    <div class="change">
+        <div class="col-md-3">
+            <a href="@Url.Action("Fix","SelfService")"><p class="img-rounded Fix"></p></a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Support", "Support")"><p class="img-rounded Pay"></p></a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("MakePayment","SelfService")"><p class="img-rounded MakePayment"></p></a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action(" "," ")"><p class="img-rounded Account"></p></a>
+        </div>
+    </div>
+    
+</body>

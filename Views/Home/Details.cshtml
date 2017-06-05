@@ -2,46 +2,128 @@
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .swift{
-        margin-left:20px;
-        margin-top:70px;
-    }
-    .txt{
-        color:#c4c4c4;
-        font:24px arial, verdana;
-    }
-    .rsshare{
-        margin-left:15px;
-    }
-</style>
 
-<section class="swift">
-    <h1 style="color:#45a3f3">@Html.DisplayFor(model => model.ShowName)</h1>
-    <div style="display:inline-block" class="txt">     
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @Styles.Render("~/Content/css")
+    <style>
+        .swift {
+            margin-left: 20px;
+            margin-top: 70px;
+        }
 
-        @Html.DisplayFor(model => model.StartDate)
-        | @Html.DisplayFor(model => model.ChannelName)
-        (@Html.DisplayFor(model => model.Channel))
+        .txt {
+            color: #c4c4c4;
+            font: 24px arial, verdana;
+        }
 
-    </div>
-    <br/><br/>
-    @{
-        var base64 = Convert.ToBase64String(Model.ShowImage);
-        var showImage = string.Format("data:image/png;base64,{0}", base64);
+        .rsshare {
+            margin-left: 15px;
+        }
+
+        .img-responsive {
+            position: relative;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 700px;
+            width: 990px;
+        }
+
+        .yahoo {
+            position: relative;
+            background-image: url("/Images/yahoo.png");
+            border: none;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+        }
+
+        .facebook {
+            position: relative;
+            background-image: url('../Images/facebook.png');
+            border: none;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+        }
+
+        .google {
+            position: relative;
+            background-image: url('/Images/google.png');
+            border: none;
+            border-radius: 50%;
+            height: 35px;
+            width: 35px;
+        }
+    </style>
+</head>
+<body>
+    <section class="swift">
+        <h1 style="color:#45a3f3">@Html.DisplayFor(model => model.ShowName)</h1>
+        <div style="display:inline-block" class="txt">
+
+            @Model.StartDate.ToString("dd MMM yyyy hh:mm")
+            | @Html.DisplayFor(model => model.ChannelName)
+            (@Html.DisplayFor(model => model.Channel))
+
+        </div>
+        <br /><br />
+        @{
+            var base64 = Convert.ToBase64String(Model.ShowImage);
+            var showImage = string.Format("data:image/png;base64,{0}", base64);
+        }
+        <img class="img-responsive" src="@showImage" />
+        <br /><br />
+        <div>
+            <a href="http://www.facebook.com/share.php" target="_blank"><i id="shareBtn" class="fa fa-facebook w3-hover w3-large" style="background-color:#2d76c6;color:#ffffff;width:200px"><span class="rsshare">Facebook</span></i></a>
+            <a href="https://twitter.com/share" target="_blank"><i class="fa fa-twitter w3-hover  w3-large" style="width:200px"><span class="rsshare">Twitter</span></i></a>
+            <a href="https://plus.google.com/share" target="_blank"><i class="fa fa-google w3-hover w3-large" data-action="share" style="color:#ffffff;width:200px"><span class="rsshare">Google+</span></i></a>
+        </div>
+        <br />
+        <div style="display:inline-block">
+            <p style="font:20px arial, verdana;width:920px">@Html.DisplayFor(model => model.ShowDescription)</p>
+        </div>
+
+    </section>
+</body>
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1531200290258664',
+            cookie: true,
+            xfbml: true,
+            version: 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    document.getElementById('shareBtn').onclick = function() {
+      FB.ui({
+        method: 'share', 
+        mobile_iframe: true,
+        href: 'http://www.facebook.com/share.php',
+      }, function(response){});
     }
-    <img class="img-responsive" src="@showImage" style="height:700px;width:990px;" />
-    <br/><br />
-    <div>
-        <a href="http://www.facebook.com/share.php" target="_blank"><i class="fa fa-facebook w3-hover w3-large" style="background-color:#2d76c6;color:#ffffff;width:200px"><span class="rsshare">Facebook</span></i></a>
-        <a href="https://twitter.com/share" target="_blank"><i class="fa fa-twitter w3-hover  w3-large" style="width:200px"><span class="rsshare">Twitter</span></i></a>
-        <a href="https://plus.google.com/share" target="_blank"><i class="fa fa-google w3-hover w3-large" style="color:#ffffff;width:200px"><span class="rsshare">Google+</span></i></a>
-    </div>
-    <br/>
-    <div style="display:inline-block">
-        <p style="font:20px arial, verdana;width:920px">@Html.DisplayFor(model => model.ShowDescription)</p>
-    </div>
-      
-   
-</section>
+</script>
+
+
+<script>
+    window.___gcfg = {
+        lang: 'en-US',
+        parsetags: 'onload'
+    };
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+

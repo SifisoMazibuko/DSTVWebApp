@@ -6,17 +6,167 @@
 @{ 
     DataContext context = new DataContext();
 }
-<style>
-    .tx{
-        font-size:30px;
-    }
-    .move{
-        margin-left:15px;
-    }
-</style>
+
+
+<head>
+
+    <style>
+        .tx {
+            font-size: 30px;
+        }
+
+        .move {
+            margin-left: 15px;
+        }
+
+        .pic {
+            position: relative;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 350px;
+            max-width: 400px;
+        }
+
+        .imgText {
+            float: left;
+            margin: 5px;
+        }
+
+        .boxx {
+            border: 1px solid thin #c1c1c1;
+            background-color: #f5f5f5;
+            height: 150px;
+            max-width: 400px;
+            font-size: 20px;
+            color: #0c74f3;
+        }
+
+            .boxx:hover {
+                background-color: #0c74f3;
+                font-size: 20px;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top topSection">
+        <div class="">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("DSTV", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "brand" })*@
+                <a href="@Url.Action("Index","Home",new { area = "" })"><img class="brand" /></a>
+            </div>
+
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle text" data-toggle="dropdown" href="#">TV Guide</a>
+                        <ul class="dropdown-menu sameposition row">
+
+                            <li class="col-sm-4">
+                                <a><h3 style="color:#0094ff">What's On</h3></a>
+                                <ul style="font-size:20px"><a href="@Url.Action("Guide",new { controller="Shows"})">Guide</a></ul>
+                                <ul style="font-size:20px"><a href="@Url.Action("MovieCalendar",new { controller="Movies"})">Movie Calendar</a></ul>
+                                <ul style="font-size:20px"><a href="@Url.Action("ComedyCalendar",new { controller="Comedy"})">Comedy Calendar</a></ul>
+                                <ul style="font-size:20px"><a href="@Url.Action("SeriesCalendar",new { controller="Series"})">Series Calendar</a></ul>
+                                @*@foreach (var item in names)
+                                    {
+                                        <ul><a href="@Url.Action("Details","Home",new { id=item})">@item</a></ul>
+                                    }*@
+
+                            </li>
+
+                            <li class="col-sm-4">
+                                <a><h3 style="color:#0094ff">Shows</h3></a>
+                                @*@foreach (var item in ViewBag.genre)
+                                    {
+                                        <a href="@Html.Action("Details", "Home",new { id=item.ShowID})">Documentaries</a>
+                                    }
+
+                                    <ul>Documentaries</ul>
+                                    <ui>Movies</ui>
+                                    <ul>Comedy</ul>
+                                    <ui>Series</ui>
+                                    <ul>Drama</ul>*@
+                            </li>
+
+
+                            <li class="col-sm-4"><a><h3 style="color:#0094ff">Recommended</h3></a></li>
+                            <li><a><h1 style="color:#0094ff">Must See On Digital TV</h1></a></li>
+                            <li style="margin-left:15px;">
+                                @foreach (var item in ViewBag.mustSee)
+                                    {
+                                        <div style="display:inline-block">
+                                            @{
+                                                var base64 = Convert.ToBase64String(item.ShowImage);
+                                                var showImage = string.Format("data:image/png;base64,{0}", base64);
+                                            }
+                                            <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                                <img src="@showImage" style="height:250px;max-width:250px;background-size:cover;background-repeat:no-repeat" />
+                                            </a>
+                                            <p style=" border: 1px solid thin #c1c1c1;font-size:14px;height:200px;max-width:450px;font-size:20px;color:#0c74f3;">@item.ShowName</p>
+                                        </div>
+                                    }
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a class="dropdown-toggle text" data-toggle="dropdown" href="@Url.Action("Rewards", new { controller="Rewards"})">Rewards</a>
+                        <ul class="dropdown-menu position row">
+                            <a><h3 style="color:#0094ff">Enter Now</h3></a>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li><a class="text" href="@Url.Action("SupportQuery", new { controller="Support"})">Send-A-Query</a></li>
+                    <li><a class="text" href="@Url.Action("Fix", new { controller="SelfService"})">Self-Service</a></li>
+                    <li><a class="text" href="@Url.Action("Support", new { controller="Support"})">Support</a></li>
+
+                </ul>
+
+                <div style="padding-left:1300px">
+                    @Html.Partial("_SearchPartial")
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @try
+                    {
+                        @Html.Partial("_LoginPartial")
+                    }
+                    catch (Exception)
+                    {
+                    }
+                </ul>
+
+                @*@if (Html.Hidden("mySess").ToString() != "")
+                    {
+                        <ul class="nav navbar-nav navbar-right topSection">
+                            @Html.Partial("_FacelogPartial")
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right topSection">
+                            @Html.Partial("_LoginPartial")
+                        </ul>
+                    }*@
+
+            </div>
+        </div>
+    </div>
+
+
 
     <div class="">
-        @*<br>*@
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -29,117 +179,121 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
 
-                <div class="item active">                    
-                    <a href="@Url.Action("Details", "Home", new { id = 1})">
-                        <img src="~/Images/Farscapecrew_0.jpg" alt="" width="1900" height="150">
-                    </a>
+                <div class="item active">
+                    @{
+                        var mag = (from i in context.Shows
+                                   where i.ShowID == 20
+                                   select i).ToList();
+                        ViewBag.mag = mag;
+                    }
+                    @foreach (var item in ViewBag.mag)
+                    {
+                        <a href="@Url.Action("Details", "Home", new { id = item.ShowName})">
+                            <img src="~/Images/Farscapecrew_0.jpg" alt="" width="1900" height="100">
+                        </a>
+                    }
+
                     <div class="carousel-caption">
                         <div class="pull-right">
-                            <h1 style="font-size:60px">The Magicians</h1>
-                            @{ 
-                                var mag = (from i in context.Shows
-                                           where i.ShowID == 2
-                                           select i).ToList();
-                                ViewBag.mag = mag;
-                            }
+                            <h1 style="font-size:60px">The Magician</h1>
+
                             @foreach (var item in ViewBag.mag)
                             {
                                 <div>
                                     <h4 class="tx">
                                         @item.StartDate.ToString("dd MMM hh:mm") On @item.ChannelName
-                                    </h4> 
+                                    </h4>
                                 </div>
                                 <br />
+
                                 <div class="pull-right">
-                                    <a class="btn-lg btn-primary" href="@Url.Action("Details", "Home", new { id = 1})">
+                                    <a class="btn-lg btn-primary" href="@Url.Action("Details", "Home", new { id = item.ShowName})">
                                         More Details
                                     </a>
                                 </div>
                             }
-                           
-                            
                         </div>
-
                     </div>
                 </div>
 
 
-                <div class="item">                   
-                    <a href="@Url.Action("Details", "Home", new { id = 2})">
-                        <img src="~/Images/thehustle_lrg.jpg" alt="" width="1900" height="150">
-                    </a>
+                <div class="item">
+                    @{
+                        var hus = (from i in context.Shows
+                                   where i.ShowID == 21
+                                   select i).ToList();
+                        ViewBag.hus = hus;
+                    }
+                    @foreach (var item in ViewBag.hus)
+                    {
+                        <a href="@Url.Action("Details", "Home", new { id = item.ShowName})">
+                            <img src="~/Images/thehustle_lrg.jpg" alt="" width="1900" height="100">
+                        </a>
+                    }
+
                     <div class="carousel-caption">
                         <div class="pull-right">
                             <h1 style="font-size:60px">The Hustle Season 2</h1>
-                                @{
-                                    var hus = (from i in context.Shows
-                                               where i.ShowID == 2
-                                               select i).ToList();
-                                    ViewBag.hus = hus;
-                                }
-                                @foreach (var item in ViewBag.hus)
-                                {
-                                    <div>
-                                        <h4 class="tx">
-                                            @item.StartDate.ToString("dd MMM hh:mm") On @item.ChannelName
-                                            @*<a>@item.StartDate.ToString("dd MMM hh:mm") On</a>
-                                            <a>@item.ChannelName</a>*@
-                                        </h4>
-                                    </div>
 
-                                }
-                            <br />
-                            <div class="pull-right">
-                                <a class="btn-lg btn-primary" href="@Url.Action("Details", "Home", new { id = 2})">
-                                    More Details
-                                </a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-
-                <div class="item">                   
-                    <a href="@Url.Action("Details", "Home", new { id = 4})">
-                        <img src="~/Images/Kyknet.jpg" alt="" width="1900" height="200">
-                    </a>
-                        <div class="carousel-caption">
-                            <div class="pull-right">
-                                <h1 style="font-size:60px">KykNET</h1>
-                                @*<p>17 April at 12:00 on M-NET Edge</p>*@
-                                    @{                                       
-
-                                        var kyk = (from i in context.Shows
-                                                   where i.ShowID == 4
-                                                   select i).ToList();
-                                        ViewBag.kykn = kyk;
-                                    }
-                                  @foreach (var item in ViewBag.kykn)
-                                  {
-                                      <div>
-                                          <h4 class="tx">
-                                              @item.StartDate.ToString("dd MMM hh:mm") On @item.ChannelName
-                                              @*<a>@item.StartDate.ToString("dd MMM hh:mm") On</a>
-                                              <a>@item.ChannelName</a>*@
-                                          </h4>
-                                          
-                                      </div>
-                                      
-                                  }
-                               
-                                
-                                <br />
-                                <div class="pull-right">
-                                    <a class="btn-lg btn-primary" href="@Url.Action("Details", "Home", new { id = 4 })">
-                                        More Details
-                                    </a>
+                            @foreach (var item in ViewBag.hus)
+                            {
+                                <div>
+                                    <h4 class="tx">
+                                        @item.StartDate.ToString("dd MMM hh:mm") On @item.ChannelName
+                                    </h4>
                                 </div>
-                                
+
+
+                                    <br />
+                                    <div class="pull-right">
+                                        <a class="btn-lg btn-primary" href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                            More Details
+                                        </a>
+                                    </div>
+                            }
                         </div>
                     </div>
                 </div>
 
-                
+                <div class="item">
+                    @{
+                        var kyk = (from i in context.Shows
+                                   where i.ShowID == 4
+                                   select i).ToList();
+                        ViewBag.kykn = kyk;
+                    }
+                    @foreach (var item in ViewBag.kykn)
+                    {
+                        <a href="@Url.Action("Details", "Home", new { id = item.ShowName})">
+                            <img src="~/Images/Kyknet.jpg" alt="" width="1900" height="100">
+                        </a>
+                    }
+
+                    <div class="carousel-caption">
+                        <div class="pull-right">
+                            <h1 style="font-size:60px">KykNET</h1>
+                            @foreach (var item in ViewBag.kykn)
+                            {
+                                <div>
+                                    <h4 class="tx">
+                                        @item.StartDate.ToString("dd MMM hh:mm") On @item.ChannelName
+                                    </h4>
+
+                                </div>
+
+
+                                    <br />
+                                    <div class="pull-right">
+                                        <a class="btn-lg btn-primary" href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                            More Details
+                                        </a>
+                                    </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+
 
             </div>
 
@@ -149,133 +303,203 @@
                 <span class="sr-only">Previous</span>
             </a>
             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true" ></span>
-                @*<span class="sr-only">Next</span>*@
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             </a>
         </div>
     </div>
 
-@*<div class="col-lg-offset-10">
-    <section>
-        <div class="">
-            <ul>
-                Follow DStv:
-                <a href="http://twitter.com/dstv" class="fa fa-twitter" target="_blank"></a>
-                <a href="https://plus.google.com/114851365715597869691/posts" class="fa fa-google" target="_blank"></a>
-                <a href="http://www.facebook.com/dstv" class="fa fa-facebook" target="_blank"></a>
-                <a href="http://www.wechatsa.com/dstv" class="fa fa-wechat" target="_blank"></a>
-            </ul>
-        </div> 
-    </section>
-</div>*@
-<div class="nav navbar-nav navbar-right" >   
-    <li style="color:#a8a8a8;font-size:24px;margin-top:20px">Follow DSTV: </li>
-    <a href="http://www.wechatsa.com/dstv" target="_blank"><i class="fa fa-wechat w3-hover-text-purple" style="color:#a8a8a8;font-size:36px"></i></a>
-    <a href="http://www.facebook.com/dstv" target="_blank"><i class="fa fa-facebook-official w3-hover-text-indigo" style="color:#a8a8a8;font-size:36px"></i></a>
-    <a href="https://plus.google.com/114851365715597869691/posts" target="_blank"><i class="fa fa-google-plus w3-hover-text-light-blue" style="color:#a8a8a8;font-size:36px"></i></a>
-    <a href="http://twitter.com/dstv" target="_blank"><i class="fa fa-twitter-square  w3-hover-text-light-blue" style="color:#a8a8a8;font-size:36px"></i></a>
-    
-</div>
+    <!--Social Networks-->
+    <div class="nav navbar-nav navbar-right">
+        @*<li style="color:#a8a8a8;font-size:24px;margin-top:20px">Follow DSTV: </li>*@
+        <a href="http://www.wechatsa.com/dstv" target="_blank"><i class="fa fa-wechat w3-hover-text-purple" style="color:#a8a8a8;font-size:36px"></i></a>
+        <a href="http://www.facebook.com/dstv" target="_blank"><i class="fa fa-facebook-official w3-hover-text-indigo" style="color:#a8a8a8;font-size:36px"></i></a>
+        <a href="https://plus.google.com/114851365715597869691/posts" target="_blank"><i class="fa fa-google-plus w3-hover-text-light-blue" style="color:#a8a8a8;font-size:36px"></i></a>
+        <a href="http://twitter.com/dstv" target="_blank"><i class="fa fa-twitter-square  w3-hover-text-light-blue" style="color:#a8a8a8;font-size:36px"></i></a>
 
-<br/>
-<br />
-<div class="move">
-    <section>
-        <div>
-            <h1><span class=""></span> Spotlight</h1>
-            @foreach (var item in ViewBag.sportlight)
-            {
-                <div style="display:inline-block">
-                    @{
-                        var base64 = Convert.ToBase64String(item.ShowImage);
-                        var showImage = string.Format("data:image/png;base64,{0}", base64);
+    </div>
+
+    <br />
+    <br />
+    @*<div class="move">
+            <section>
+                <div>
+                    <h1><span class=""></span> Spotlight</h1>
+                    @foreach (var item in ViewBag.sportlight)
+                    {
+                        <div style="display:inline-block">
+                            @{
+                                var base64 = Convert.ToBase64String(item.ShowImage);
+                                var showImage = string.Format("data:image/png;base64,{0}", base64);
+                            }
+                            <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                <img src="@showImage" style="height:350px;max-width:450px; background-size:cover;background-repeat:no-repeat;" />
+                            </a>
+
+                        </div>
                     }
-                    <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
-                        <img src="@showImage" style="height:350px;max-width:450px;" />
-                    </a> 
-                    
                 </div>
-            }
-        </div>
-    </section>
-<br/>
-    <section>
-        <div>
-            <h1><span><img class="catchUp"/></span> Catch Up</h1>
-            @foreach (var item in ViewBag.catchUp)
-            {
-                <div style="display:inline-block">
-                    @{
-                        var base64 = Convert.ToBase64String(item.ShowImage);
-                        var showImage = string.Format("data:image/png;base64,{0}", base64);
+            </section>
+        <br/>
+            <section>
+                <div>
+                    <h1><span><img class="catchUp"/></span> Catch Up</h1>
+                    @foreach (var item in ViewBag.catchUp)
+                    {
+                        <div style="display:inline-block">
+                            @{
+                                var base64 = Convert.ToBase64String(item.ShowImage);
+                                var showImage = string.Format("data:image/png;base64,{0}", base64);
+                            }
+                            <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                <img src="@showImage" class="pic" />
+                            </a>
+                        </div>
+
                     }
-                    <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
-                        <img src="@showImage" style="height:350px;max-width:400px;" />
-                    </a>                     
                 </div>
-               
-            }
+            </section>
+         <br/>
+
+            <section>
+                <h1><span class=""></span> Hot on TV</h1>
+                <div>
+
+                    @foreach (var item in ViewBag.tv)
+                    {
+                        <div style="display:inline-block">
+                            @{
+                                var base64 = Convert.ToBase64String(item.ShowImage);
+                                var showImage = string.Format("data:image/png;base64,{0}", base64);
+                            }
+                            <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                <img src="@showImage" style="height:450px;max-width:470px;background-size:cover;background-repeat:no-repeat;" />
+                            </a>
+                            <p style="font-size:26px;color:#a8a8a8;margin-bottom:70px">@item.ShowName</p>
+                         </div>
+                     }
+                </div>
+            </section>
+        <br />
+            <section>
+                <div>
+                    <h1><span><img class="boxOffice" /></span> Box Office</h1>
+                    @foreach (var item in ViewBag.boxOffice)
+                    {
+                        <div style="display:inline-block">
+                            @{
+                                var base64 = Convert.ToBase64String(item.ShowImage);
+                                var showImage = string.Format("data:image/png;base64,{0}", base64);
+                            }
+                            <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                <img src="@showImage" class="pic" />
+                            </a>
+                        </div>
+
+                     }
+                </div>
+            </section>
+        </div>*@
+
+    <div class="form-group">
+        <div class="col-sm-3">
+            <select id="show" name="ChannelName" style="height:50px;width:300px">
+                <option style="font-size:20px" selected="selected" value="Spotlight" class="col-sm-offset-2">Spotlight</option>
+                <option style="font-size:20px" value="CatchUp">CatchUp</option>
+                <option style="font-size:20px" value="BoxOffice">BoxOffice</option>
+                <option style="font-size:20px" value="TV">Hot TV</option>
+            </select>
         </div>
-    </section>
- <br/>
-    <style>
-        .imgText {
-            float: left;
-            margin: 5px;
+    </div>
+    <br />
+    <br />
+
+    <div id="hidden_div1" style="display: none;">
+        @foreach (var item in ViewBag.spotlight)
+            {
+            <div style="display:inline-block">
+                @{
+                    var base64 = Convert.ToBase64String(item.ShowImage);
+                    var showImage = string.Format("data:image/png;base64,{0}", base64);
+                }
+                <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                    <img src="@showImage" class="pic" />
+                    <div class="boxx">
+                        <h2>@item.ShowName</h2>
+                        <p>@item.ChannelName (@item.Channel)</p>
+                    </div>
+                </a>
+            </div>
+                    }
+    </div>
+    <div id="hidden_div2" style="display: none;">
+        @foreach (var item in ViewBag.catchUp)
+        {
+            <div style="display:inline-block">
+                @{
+                    var base64 = Convert.ToBase64String(item.ShowImage);
+                    var showImage = string.Format("data:image/png;base64,{0}", base64);
+                }
+                <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                    <img src="@showImage" class="pic" />
+                </a>
+            </div>
+                    }
+    </div>
+
+    <div id="hidden_div3" style="display: none;">
+        @foreach (var item in ViewBag.boxOffice)
+        {
+            <div style="display:inline-block">
+                @{
+                    var base64 = Convert.ToBase64String(item.ShowImage);
+                    var showImage = string.Format("data:image/png;base64,{0}", base64);
+                }
+                <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                    <img src="@showImage" class="pic" />
+                </a>
+            </div>
         }
-        /*.caption-blw {
-            background: rgba(0,0,0,.6);
-            background-color:#ff0000;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            color: #fff;
-            padding: 10px;
-            font-size: 18px;
-            font-weight: 300;
-        }*/
-    </style>
+    </div>
+    <div id="hidden_div4" style="display: none;">
+        @foreach (var item in ViewBag.tv)
+        {
+            <div style="display:inline-block">
+                @{
+                    var base64 = Convert.ToBase64String(item.ShowImage);
+                    var showImage = string.Format("data:image/png;base64,{0}", base64);
+                }
+                <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                    <img src="@showImage" class="pic" />
+                </a>
+            </div>
+         }
+    </div>
 
-    <section>
-        <h1><span class=""></span> Hot on TV</h1>
-        <div>
-           
-            @foreach (var item in ViewBag.tv)
-            {
-                <div style="display:inline-block">
-                    @{
-                        var base64 = Convert.ToBase64String(item.ShowImage);
-                        var showImage = string.Format("data:image/png;base64,{0}", base64);
-                    }
-                    <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
-                        <img src="@showImage" style="height:450px;max-width:470px;" />
-                        @*<p style="margin-top:15px">@item.ShowName</p>*@
-                    </a>
-                    <p style="font-size:26px;color:#a8a8a8;margin-bottom:70px">@item.ShowName</p>
-                 </div>
-             }
-        </div>
-    </section>
-<br />
-    <section>
-        <div>
-            <h1><span><img class="boxOffice" /></span> Box Office</h1>
-            @foreach (var item in ViewBag.boxOffice)
-            {
-                <div style="display:inline-block">
-                    @{
-                        var base64 = Convert.ToBase64String(item.ShowImage);
-                        var showImage = string.Format("data:image/png;base64,{0}", base64);
-                    }
-                    <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
-                        <img src="@showImage" style="height:350px;max-width:400px;" />
-                    </a>                   
-                </div>
-               
+</body>
 
-             }
-        </div>
-    </section>
-</div>
+
+
+<script type="text/javascript">
+    document.getElementById('show').addEventListener('change',
+        function () {
+            var style = this.value == "Spotlight" ? 'block' : 'none';
+            document.getElementById('hidden_div1').style.display = style;
+        });
+    document.getElementById('show').addEventListener('change',
+        function () {
+            var style = this.value == "CatchUp" ? 'block' : 'none';
+            document.getElementById('hidden_div2').style.display = style;
+        });
+    document.getElementById('show').addEventListener('change',
+        function () {
+            var style = this.value == "BoxOffice" ? 'block' : 'none';
+            document.getElementById('hidden_div3').style.display = style;
+        });
+    document.getElementById('show').addEventListener('change',
+        function () {
+            var style = this.value == "TV" ? 'block' : 'none';
+            document.getElementById('hidden_div4').style.display = style;
+        });
+</script>
 
 

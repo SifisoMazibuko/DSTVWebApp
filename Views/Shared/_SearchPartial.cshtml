@@ -1,8 +1,14 @@
-﻿@using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @style="height:0px"}))
+﻿<style>
+    .search {
+        max-width: 370px;
+        margin-left: 15px;
+        margin-top: 10px;
+    }    
+</style>
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @style="height:0px"}))
 {
-    <input type="text" id="myInput" name="SearchString" onkeyup="myFunction()" style="max-width:370px;margin-left:15px;margin-top:10px" placeholder="Search..." />
-    @*<span class="glyphicon glyphicon-search"></span>*@
-    
+    <input type="text" id="myInput" name="SearchString" onkeyup="myFunction()" class="search"  placeholder="Search..." />    
 }
 
  

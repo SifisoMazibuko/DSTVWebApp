@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "CustomerInformation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #BoxPanel{
+        position:relative;
+        background-color:#e2e2e2;
+        margin-left:700px;
+        margin-right:700px;
+        height:500px;
+        width:500px;
+    }
+    #size{
+        font-size:20px;
+    }
+</style>
+<br />
+<br />
+<br />
+<br />
+
+<div class="">
+    
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal" id="BoxPanel">
+            <h2 class="text-center">CustomerInformation</h2>
+            @*@Html.HiddenFor(model => model.CustomerID)*@
+            <div class="form-group">
+                <label class="control-label col-md-5" id="size">Customer#:</label>
+
+                <div class="col-md-10">
+                    @ViewBag.CustomerNumber
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5" id="size">Firstname:</label>
+                <div class="col-md-10">
+                    @ViewBag.FirstName
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label class="control-label col-md-5" id="size">Surname:</label>
+                <div class="col-md-10">
+                    @ViewBag.SurName
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5" id="size">Country:</label>
+                <div class="col-md-10">
+                    @ViewBag.Country
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-5" id="size">Balance:</label>
+                <div class="col-md-10">
+                    @ViewBag.Balance
+                </div>
+            </div>
+        </div>
+    }
+</div>

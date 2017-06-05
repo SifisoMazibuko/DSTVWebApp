@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
+<!-- Bootstrap -->
+<link href="./Content/bootstrap.min.css" rel="stylesheet" />
+<link href="./Content/stylesheet.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <style type="text/css">
     #myInput {
@@ -19,11 +23,7 @@
         margin-bottom: 12px;
     }
 </style>
-<!-- Bootstrap -->
-<link href="./Content/bootstrap.min.css" rel="stylesheet" />
-<link href="./Content/stylesheet.css" rel="stylesheet" />
-<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
-<link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+
 <style>
     #btnAddProduct {
         margin-bottom: 5px;
@@ -36,9 +36,9 @@
     <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" type="text/css" rel="stylesheet" />
     <link href="http://http://cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css" type="text/javascript" rel="stylesheet" />*@
 
-<fieldset>
-    <br/>
-    <h2>Availble Shows</h2>
+@*<fieldset>*@
+    @*<br/>*@
+    <h2>Available Shows</h2>
     <br/>
     <button class="btn btn-default" id="btnAddProduct">
         @Html.ActionLink("Add New Show", "Create", new { style = "color:#fff" })
@@ -156,7 +156,7 @@
         </tbody>
 
     </table>
-</fieldset>
+@*</fieldset>*@
 
 <script src="~/Scripts/jquery.js"></script>
 
@@ -164,20 +164,6 @@
 <script src="~/Scripts/jquery.dataTables.min.js"></script>
 <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
 
-@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>*@
-
-@*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/pdfmake.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.24/build/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.print.min.js"></script>
-    <script src="http://cdn.datatables.net/buttons/1.2.4/js/buttons.colVis.min.js"></script>*@
 
 <script type="text/javascript">
     function myFunction() {

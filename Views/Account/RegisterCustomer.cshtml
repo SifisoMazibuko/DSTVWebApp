@@ -4,180 +4,191 @@
     ViewBag.Title = "RegisterCustomer";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-<br />
-<br/>
-<div class="container col-sm-offset-3">
-    <h2>Continue Registration</h2>
-    @ViewBag.Message 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .vid-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-        <div class="form-horizontal">
+        .bgvid {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+        }
 
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.CustomerNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.CustomerNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CustomerNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
+        .inner-container {
+            width: 400px;
+            height: 1000px;
+            position: absolute;
+            overflow: hidden;
+            margin-top:55px;
+            left: calc(50vw - 200px);
+        }
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.SmartCardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.SmartCardNumber, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.SmartCardNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+        .bgvid.inner {
+            top: calc(-50vh + 200px);
+            left: calc(-50vw + 200px);
+            filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+            -webkit-filter: blur(10px);
+            -ms-filter: blur(10px);
+            -o-filter: blur(10px);
+            filter: blur(10px);
+        }
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;" } })
-                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+        .box {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            background: rgba(0,0,0,0.13);
+          
+        }
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;" } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            .box h1 {
+                text-align: center;
+                margin: 30px 0;
+                font-size: 30px;
+            }
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.SurName, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.SurName, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;" } })
-                    @Html.ValidationMessageFor(model => model.SurName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            .box input {
+                display: block;
+                width: 350px;
+                margin: 20px auto;
+                padding: 15px;
+                background: rgba(0,0,0,0.2);
+                color: #fff;
+                font-size:20px;
+                border: 0;
+            }
 
-            <div class="form-group">
-                <label class="control-label col-sm-3">Date Of Birth</label>
-                @*@Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", type = "date" } })
-                    @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                .box input:focus, .box input:active, .box button:focus, .box button:active {
+                    outline: none;
+                }
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder="M/F" } })
-                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            .box button {
+                background: #2ecc71;
+                border: 0;
+                color: #fff;
+                padding: 10px;
+                font-size: 20px;
+                width: 330px;
+                margin: 20px auto;
+                display: block;
+                cursor: pointer;
+            }
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @*@Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;" } })*@
-                  
-                    <select style="width:100%" data-val="true" data-val-required="The country is required." id="Country" name="Country" class="valid">
-                        <option value="Algeria">Algeria</option>
-                        <option value="Angola">Angola</option>
-                        <option value="Benin">Benin</option>
-                        <option value="Botswana">Botswana</option>
-                        <option value="Burkina Faso">Burkina Faso</option>
-                        <option value="Burundi">Burundi</option>
-                        <option value="Cameroon">Cameroon</option>
-                        <option value="Cape Verde">Cape Verde</option>
-                        <option value="Central African Republic">Central African Republic</option>
-                        <option value="Chad">Chad</option>
-                        <option value="Comoros">Comoros</option>
-                        <option value="DRC">DRC</option>
-                        <option value="Djibouti">Djibouti</option>
-                        <option value="Equatorial Guinea">Equatorial Guinea</option>
-                        <option value="Eritrea">Eritrea</option>
-                        <option value="Ethiopia">Ethiopia</option>
-                        <option value="Gabon">Gabon</option>
-                        <option value="Gambia">Gambia</option>
-                        <option value="Ghana">Ghana</option>
-                        <option value="Guinea">Guinea</option>
-                        <option value="Guinea-Bissau">Guinea-Bissau</option>
-                        <option value="Ivory Coast">Ivory Coast</option>
-                        <option value="Kenya">Kenya</option>
-                        <option value="Lesotho">Lesotho</option>
-                        <option value="Liberia">Liberia</option>
-                        <option value="Madagascar">Madagascar</option>
-                        <option value="Malawi">Malawi</option>
-                        <option value="Mali">Mali</option>
-                        <option value="Mauritania">Mauritania</option>
-                        <option value="Mauritius">Mauritius</option>
-                        <option value="Mayotte">Mayotte</option>
-                        <option value="Mozambique">Mozambique</option>
-                        <option value="Namibia">Namibia</option>
-                        <option value="Niger">Niger</option>
-                        <option value="Nigeria">Nigeria</option>
-                        <option value="Republic of the Congo">Republic of the Congo</option>
-                        <option value="Rwanda">Rwanda</option>
-                        <option value="RÃ©union">RÃ©union</option>
-                        <option value="Saint Helena">Saint Helena</option>
-                        <option value="Senegal">Senegal</option>
-                        <option value="Seychelles">Seychelles</option>
-                        <option value="Sierra Leone">Sierra Leone</option>
-                        <option value="Somalia">Somalia</option>
-                        <option selected="selected" value="South Africa">South Africa</option>
-                        <option value="Sudan">Sudan</option>
-                        <option value="Swaziland">Swaziland</option>
-                        <option value="Tanzania">Tanzania</option>
-                        <option value="Togo">Togo</option>
-                        <option value="Uganda">Uganda</option>
-                        <option value="Zambia">Zambia</option>
-                        <option value="Zimbabwe">Zimbabwe</option>
+                .box button:active {
+                    background: #27ae60;
+                }
+
+            .box p {
+                font-size: 18px;
+                text-align: center;
+                color: #fff;
+            }
+
+                .box p span {
+                    cursor: pointer;
+                    color: #fff;
+                }
+    </style>
+</head>
+
+<body>
+    <div class="vid-container">
+        <video class="bgvid" autoplay="autoplay" muted="muted" preload="auto" loop>
+            <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
+        </video>
+        <div class="inner-container">
+            @*<video class="bgvid inner" autoplay="autoplay" muted="muted" preload="auto" loop>
+                <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
+            </video>*@
+            <form method="post" action="RegisterCustomer">
+                 @Html.AntiForgeryToken()
+                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="box">
+                    <h1>Continue</h1>
+                    <input type="text" name="Username" placeholder="Username" required/>
+                    <input type="text" name="FirstName" placeholder="Firstname" required/>
+                    <input type="text" name="SurName" placeholder="Surname" required/>
+                    <select style="margin-left:25px;height:45px;width:87%" data-val="true" data-val-required="The gender is required." id="Gender" name="Gender" class="valid">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
                     </select>
-                    
-                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <input type="date" name="DOB" />
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;" } })
-                    @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                    <select style="margin-left:25px;height:45px;width:87%"  data-val="true" data-val-required="The country is required." id="Country" name="Country" class="valid">
+                            <option value="Algeria">Algeria</option>
+                            <option value="Angola">Angola</option>
+                            <option value="Benin">Benin</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="Burkina Faso">Burkina Faso</option>
+                            <option value="Burundi">Burundi</option>
+                            <option value="Cameroon">Cameroon</option>
+                            <option value="Cape Verde">Cape Verde</option>
+                            <option value="Central African Republic">Central African Republic</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Comoros">Comoros</option>
+                            <option value="DRC">DRC</option>
+                            <option value="Djibouti">Djibouti</option>
+                            <option value="Equatorial Guinea">Equatorial Guinea</option>
+                            <option value="Eritrea">Eritrea</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Gabon">Gabon</option>
+                            <option value="Gambia">Gambia</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Guinea">Guinea</option>
+                            <option value="Guinea-Bissau">Guinea-Bissau</option>
+                            <option value="Ivory Coast">Ivory Coast</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Lesotho">Lesotho</option>
+                            <option value="Liberia">Liberia</option>
+                            <option value="Madagascar">Madagascar</option>
+                            <option value="Malawi">Malawi</option>
+                            <option value="Mali">Mali</option>
+                            <option value="Mauritania">Mauritania</option>
+                            <option value="Mauritius">Mauritius</option>
+                            <option value="Mayotte">Mayotte</option>
+                            <option value="Mozambique">Mozambique</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Niger">Niger</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Republic of the Congo">Republic of the Congo</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="RÃ©union">RÃ©union</option>
+                            <option value="Saint Helena">Saint Helena</option>
+                            <option value="Senegal">Senegal</option>
+                            <option value="Seychelles">Seychelles</option>
+                            <option value="Sierra Leone">Sierra Leone</option>
+                            <option value="Somalia">Somalia</option>
+                            <option selected="selected" value="South Africa">South Africa</option>
+                            <option value="Sudan">Sudan</option>
+                            <option value="Swaziland">Swaziland</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Togo">Togo</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                        </select>
+                        <input type="text" name="Province" placeholder="Province" required/>
+                        <input type="text" name="Phone" placeholder="Phone" required/>
+                        <input type="text" name="Email" placeholder="Email" required/>
+                        <input type="password" name="Password" placeholder="Password" required/>
+                        <button type="submit">Register</button>
+                        <p><span>@Html.ActionLink("Already Registered? Login", "Login")</span></p>
+             </div>
+            </form>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;" } })
-                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", type = "email" } })
-                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-sm-3" })
-                <div class="col-sm-9">
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", type="password" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <input type="submit" value="Continue" class="btn-lg btn-primary" style="width:100%" />
-                </div>
-            </div>
         </div>
-    }
-</div>
-
+    </div>
+</body>
 
 @*<div>
     @Html.ActionLink("Back to List", "Index")

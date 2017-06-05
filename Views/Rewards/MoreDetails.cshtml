@@ -1,0 +1,60 @@
+﻿@model DSTVWebApp.Models.Rewards
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <title>MoreDetails</title>
+    <style>
+        .swift {
+            margin-left: 20px;
+            margin-top: 70px;
+        }
+
+        .txt {
+            color: #c4c4c4;
+            font: 24px arial, verdana;
+        }
+
+        .rsshare {
+            margin-left: 15px;
+        }
+
+        .img-responsive {
+            position: relative;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 700px;
+            width: 990px;
+        }
+    </style>
+
+</head>
+<body>
+    <br/>
+    <div class="col-sm-6">
+        <h1 style="color:#45a3f3">@Html.DisplayFor(model => model.RewardName)</h1>
+        <br /><br />
+        @{
+            var base64 = Convert.ToBase64String(Model.Image);
+            var showImage = string.Format("data:image/png;base64,{0}", base64);
+            var Image = string.Format("data:image/png;base64,{0}", base64);
+        }
+        <img class="img-responsive" src="@showImage" />
+        <br />
+        <h3><label>Closing Date:</label> @Model.ClosingDate.ToString("dd MMM yyyy")</h3>
+        <h3>@Model.Description</h3>
+    </div>
+
+    <div class="col-sm-6">
+        <h2 style="color:#45a3f3">More Competition</h2>
+         
+    </div>
+</body>
+</html>

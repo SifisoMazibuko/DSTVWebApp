@@ -1,0 +1,63 @@
+﻿@model DSTVWebApp.Models.Show
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <style>
+        .font {
+            font-size: 23px;
+            margin-left:20px;
+            margin-top:15px;
+        }
+
+        .font1 {
+            font-size: 24px;
+        }
+        .down {
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <br />
+    <br />
+    <br />
+    @*<h2 class="glyphicon glyphicon-list"> List</h2>*@
+    <div class="down">
+        <h3 class="glyphicon glyphicon-list font1"><a href="@Url.Action("List", new { controller="Shows"})">List</a></h3>
+        <h3 class="glyphicon glyphicon-list-alt font1"><a href="@Url.Action("Guide", new { controller="Shows"})">Grid</a></h3>
+    </div>
+   
+    <table class="font">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>&nbsp;
+            <th>
+                @Html.DisplayNameFor(model => model.ShowName)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in ViewBag.shows)
+        {
+            <tr>
+                <td>
+                    @*@item.Duration*@
+                    @string.Format("{0:hh\\:mm}", item.Duration)
+                </td>
+                <td style="color:#0094ff">
+                    <a href="@Url.Action("Details","Home",new { id=item.ShowName })">@item.ShowName</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</body>

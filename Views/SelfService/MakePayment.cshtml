@@ -1,0 +1,88 @@
+﻿@model DSTVWebApp.Models.Billing
+
+@{
+    ViewBag.Title = "MakePayment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MakePayment</h2>
+
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .box {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            /*background: rgba(0,0,0,0.13);*/
+            padding: 30px 0px;
+        }
+
+        .first-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .inner-container {
+            width: 400px;
+            height: 500px;
+            position: absolute;
+            top: calc(50vh - 450px);
+            left: calc(50vw - 900px);
+            overflow: hidden;
+        }
+        .box input {
+            width: 380px;
+            font-size: 20px;
+          
+        }
+        .box button {
+            background: #ff0000;
+            border: 0;
+            color: #fff;
+            padding: 10px;
+            font-size: 20px;
+            width: 200px;
+            /*margin: 20px auto;*/
+            display: block;
+            cursor: pointer;
+        }
+        .control-label{
+            font-size:20px;
+            color:#000000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="first-container">
+        <div class="inner-container">
+            @using (Html.BeginForm())
+            {
+                @*<form action="MakePayment" method="get">*@
+                    <h1>Pay DStv Subscription</h1>
+                    <div class="box">
+
+
+
+                        <label class="control-label"><span class="glyphicon glyphicon-asterisk" style="color:#ff0000;"></span> Customer Number</label><br />
+                        <input type="text" name="CustomerNumber" id="CustomerNumber" value="@ViewBag.cusNumber" required placeholder="Customer Number" /><br /><br />
+                        <label class="control-label"><span class="glyphicon glyphicon-asterisk" style="color:#ff0000;"></span> Email</label><br />
+                        <input type="email" name="Email" id="Email" value="@ViewBag.email " required placeholder="Email Address" /><br /><br />
+                        <label class="control-label"><span></span> Phone</label><br />
+                        <input type="text" name="Phone" id="Phone" value="@ViewBag.phone" placeholder="Phone" /><br /><br />
+                        <label class="control-label"><span class="glyphicon glyphicon-asterisk" style="color:#ff0000;"></span> Amount</label><br />
+                        <input type="text" name="Amount" id="Amount"  required placeholder="Amount R" /><br /><br />
+                        <button type="submit">Continue</button>
+                    </div>
+                @*</form>*@
+            }
+              
+        </div>
+    </div>   
+    
+</body>

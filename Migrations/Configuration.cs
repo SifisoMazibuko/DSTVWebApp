@@ -9,7 +9,7 @@ namespace DSTVWebApp.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(DSTVWebApp.Context.DataContext context)

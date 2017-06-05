@@ -1,19 +1,51 @@
-﻿<!DOCTYPE html>
+﻿@*@using DSTVWebApp.Context
+@{
+    DataContext db = new DataContext();
+    var names = (from n in db.Shows
+                 where n.Category == "CatchUp"
+                select n.ShowName).ToList();
+
+                 //var genre = (from n in db.Shows
+                 //             where n.Genre == "Documentary"
+                 //             select n).ToList();
+                 //ViewBag.genre = genre;
+}*@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - DSTV</title>
-    @Styles.Render("~/Content/css") 
+    <meta name="google-signin-client_id" content="228499263251-jghkmmub5mv04o9uft9ht7trsj2d8paq.apps.googleusercontent.com">
+    <title>DSTV</title>
+    @*@Styles.Render("~/Content/css")*@ 
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="canonical" />
+    <link rel="canonical" href="/web/tweet-button">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
    <style type="text/css">
+       #mySess {
+           margin-left: 100px;
+       }
        .text {
            font: bold 20px arial,verdana;
-           margin-left:15px;
-           margin-top:15px;
+           margin-left: 15px;
+           margin-top: 15px;
+          
+       }
+       .dropdown:hover .sameposition {
+           display: block;
+           height: 570px;
+           width: 1400px
+       }
+       .sameposition li a:hover {
+           background-color: #97d9ff;
+           font-weight: bold;
        }
        #myInput {
            background-image: url('/Images/search.png');
@@ -25,10 +57,23 @@
            border: 1px solid #ddd;
            margin-bottom: 12px;
        }
+       .dropdown:hover .position {
+           display: block;
+           padding-right: 350px;
+           height: 570px;
+           width: 1400px
+       }
 
+       .position li a:hover {
+           background-color: #97d9ff;
+           font-weight: bold;
+       }
+       
+              
    </style>
 </head>
 <body>
+    
     <div class="navbar navbar-default navbar-fixed-top topSection">
         <div class="">
             <div class="navbar-header">
@@ -41,49 +86,106 @@
                 @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "brand" })*@
                 <a href="@Url.Action("Index","Home",new { area = "" })"><img class="brand" /></a>
             </div>
+         
+
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle text" data-toggle="dropdown" href="#">TV Guide</a>
+                        <ul class="dropdown-menu sameposition row" >
+                            
+                            <li class="col-sm-4">
+                                <a><h3 style="color:#0094ff">What's On</h3></a>
+                                <ul style="font-size:20px"><a href="@Url.Action("Guide",new { controller="Shows"})">Guide</a></ul>
+                                <ul style="font-size:20px"><a href="@Url.Action("MovieCalendar",new { controller="Movies"})">Movie Calendar</a></ul>
+                                <ul style="font-size:20px"><a href="@Url.Action("ComedyCalendar",new { controller="Comedy"})">Comedy Calendar</a></ul>
+                                <ul style="font-size:20px"><a href="@Url.Action("SeriesCalendar",new { controller="Series"})">Series Calendar</a></ul>
+                                @*@foreach (var item in names)
+                                {
+                                    <ul><a href="@Url.Action("Details","Home",new { id=item})">@item</a></ul>
+                                }*@
+                               
+                            </li>
+
+                            <li class="col-sm-4">
+                                <a><h3 style="color:#0094ff">Shows</h3></a>
+                                @*@foreach (var item in ViewBag.genre)
+                                {
+                                    <a href="@Html.Action("Details", "Home",new { id=item.ShowID})">Documentaries</a>
+                                }                               
+
+                                <ul>Documentaries</ul>
+                                <ui>Movies</ui>
+                                <ul>Comedy</ul>
+                                <ui>Series</ui>
+                                <ul>Drama</ul>*@
+                            </li>
+                               
+
+                            <li class="col-sm-4"><a><h3 style="color:#0094ff">Recommended</h3></a></li>
+                            <li><a><h1 style="color:#0094ff">Must See On Digital TV</h1></a></li>
+                            <li style="margin-left:15px;">
+                                @*@foreach (var item in ViewBag.mustSee)
+                                {
+                                    <div style="display:inline-block">
+                                        @{
+                                            var base64 = Convert.ToBase64String(item.ShowImage);
+                                            var showImage = string.Format("data:image/png;base64,{0}", base64);
+                                        }
+                                        <a href="@Url.Action("Details", "Home", new { id = item.ShowName })">
+                                            <img src="@showImage" style="height:250px;max-width:250px;background-size:cover;background-repeat:no-repeat" />
+                                        </a>
+                                        <p style=" border: 1px solid thin #c1c1c1;font-size:14px;height:200px;max-width:450px;font-size:20px;color:#0c74f3;">@item.ShowName</p>
+                                    </div>
+                                }*@  
+                             </li>
+                        </ul>                        
+                    </li>
+
+                    @*<li class="dropdown">
+                         <a class="dropdown-toggle text" data-toggle="dropdown" href="@Url.Action("Rewards", new { controller="Rewards"})">Rewards</a>
+                        <ul  class="dropdown-menu row">
+                            <a><h3 style="color:#0094ff">Enter Now</h3></a>
+                            <li>
+                                
+                            </li>
+                        </ul>
+                    </li>*@
                     
-                    <li class="dropdown">
-                        @*<div class="dropdown-toggle text" style="font-size:20px" data-toggle="dropdown">Shows</div>*@
-                          <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("TV Guide", "Index", "Home")</li>
-                            <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li>
-                            </ul>
-                    </li>
-                    <li class="dropdown">
-                        @*<div class="dropdown-toggle text" style="font-size:20px" data-toggle="dropdown">Shows</div>*@
-                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("GET DSTV", "Index", "Home")</li>
-                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
-                    </li>
-                    <li  class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("REWARDS", "Index", "Home")</li>
-                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
-                    </li>
-                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("WATCH", "Index", "Home")</li>
-                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
-                    </li>
-                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("MY DSTV", "Index", "Home")</li>
-                    <ul class="dropdown-menu" style="height:400px;width:1900px"><li></li></ul>
-                    </li>
-                    <li class="dropdown-toggle text" data-toggle="dropdown">@Html.ActionLink("SUPPORT", "Index", "Home")</li>
-                    @*<li  class="text">@Html.ActionLink("GET DSTV", "Index", "Home")</li>
-                    <li  class="text">@Html.ActionLink("REWARDS", "Index", "Home")</li>
-                    <li  class="text">@Html.ActionLink("WATCH", "Index", "Home")</li>
-                    <li  class="text">@Html.ActionLink("MY DSTV", "About", "Home")</li>
-                    <li  class="text">@Html.ActionLink("SUPPORT", "Contact", "Home")</li>*@
-                </ul>
-                @Html.Partial("_SearchPartial")
-                
-              @*@using (Html.BeginForm())
+                    <li><a class="text" href="@Url.Action("Rewards", new { controller="Rewards"})">Rewards</a></li>                    
+                    <li><a class="text" href="@Url.Action("SupportQuery", new { controller="Support"})">Send-A-Query</a></li>
+                    <li><a class="text" href="@Url.Action("Fix", new { controller="SelfService"})">Self-Service</a></li>
+                    <li><a class="text" href="@Url.Action("Support", new { controller="Support"})">Support</a></li>
+               </ul>
+                  
+               <div style="padding-left:1300px">
+                   @Html.Partial("_SearchPartial") 
+               </div>
+               
+                <ul class="nav navbar-nav navbar-right">
+                    @try
                     {
-                        <li class="text">
-                            <input type="text" id="myInput" name="SearchString" onkeyup="myFunction()" style="max-width:100px;" placeholder="Search">
-                        </li>
-                    }*@
+                        @Html.Partial("_LoginPartial")
+                    }
+                    catch (Exception)
+                    {
+                     }                  
+                </ul>
+               
+                @*@if (Html.Hidden("mySess").ToString() != "")
+                {                   
+                    <ul class="nav navbar-nav navbar-right topSection">
+                        @Html.Partial("_FacelogPartial")
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-right topSection">
+                        @Html.Partial("_LoginPartial")
+                    </ul>
+                }*@
+
                 
-              
-                <ul class="nav navbar-nav navbar-right topSection">
-                   @Html.Partial("_LoginPartial")  
-                </ul>    
             </div>
                
         </div>
@@ -92,14 +194,36 @@
     <div class="body-content">
         @RenderBody()
         <hr />
-        <footer class="text-center">
-            <div>
+        <footer class="text-center nav navbar-fixed-bottom">
+            @*<div>
                 <ul class="logo"></ul>
-            </div>
-            <p class="cc">&copy; @DateTime.Now.Year MultiChoice Support Services (Pty) Ltd</p>
+            </div>*@
+            <p class="cc">&copy; @DateTime.Now.Year MultiChoice (Pty) Ltd</p>
            
         </footer>
     </div>
+       
+    @*<input type="hidden" id="mySess" name="mySess" />*@
+
+   @*<script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        }
+   </script>
+
+    <a href="#" onclick="signOut();">Sign out</a>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>*@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

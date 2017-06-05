@@ -48,6 +48,8 @@ namespace DSTVWebApp.Models
         [Required]
         public string Email { get; set; }
 
+        public double Balance { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Password { get; set; }

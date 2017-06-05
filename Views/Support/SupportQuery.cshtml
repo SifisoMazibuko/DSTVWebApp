@@ -1,0 +1,143 @@
+﻿@model DSTVWebApp.Models.SupportQuery
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SupportQuery</title>
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/bootstrap.min.css")
+    <style>
+        .changeSize {
+            width: 80%;
+        }
+        #headerSide {
+            position: center;
+            margin-left: 350px;
+            height:50%;
+            width: 60%;
+        }
+        #increase{
+            font-size:24px;
+            color:#0094ff;
+        }
+    </style>
+</head>
+<body>
+    <br /><br /><br /><br /><br />
+    <div id="headerSide">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title" id="increase"><a href="#debit" aria-expanded="false" class='accordion-toggle collapsed' data-parent="#accordion" data-toggle="collapse">Send A Query <span class="pull-right caret"></span></a></h4>
+            </div>
+            <div class="panel-collapse collapse" aria-expanded="false" id="debit">
+                <div class="panel-group"></div>
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            <h4>Support Query</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control changeSize" } })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Surname, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Surname, new { htmlAttributes = new { @class = "form-control changeSize" } })
+                                    @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control changeSize" } })
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control changeSize" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.CustomerNumber, new { htmlAttributes = new { @class = "form-control changeSize" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.TextAreaFor(model => model.Comments, 4, 107, new { htmlAttributes = new { @class = "form-control changeSize" } })
+                                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Nature Of Query</label>
+                                @*@Html.LabelFor(model => model.NatureOfQuery, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                <div class="col-md-10">
+                                    @*@Html.EditorFor(model => model.NatureOfQuery, new { htmlAttributes = new { @class = "form-control changeSize" } })*@
+                                   
+                                     <div>
+
+                                        <input type="radio" name="NatureOfQuery" id="BoxOffice query" value="BoxOffice query">&nbsp;BoxOffice query<br>
+
+                                        <input type="radio" name="NatureOfQuery" id="My device / decoder" value="My device / decoder">&nbsp;My device / decoder<br>
+
+                                        <input type="radio" name="NatureOfQuery" id="My DStv / account details" value="My DStv / account details">&nbsp;My DStv / account details<br>
+                                       
+                                        <input type="radio" name="NatureOfQuery" id="Payment options" value="Payment options">&nbsp;Payment options<br>
+
+                                        <input type="radio" name="NatureOfQuery" id="Reconnections" value="Reconnections">&nbsp;Reconnections<br>
+
+                                        <input type="radio" name="NatureOfQuery" id="Website query" value="Website query">&nbsp;Website query<br>
+                                         
+                                        <input type="radio" name="NatureOfQuery" id="Other" value="Other">&nbsp;Other<br>
+
+                                    </div>
+
+
+                                    @Html.ValidationMessageFor(model => model.NatureOfQuery, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Submit" class="btn btn-primary" style="height:30%;width:20%;" />
+                                </div>
+                            </div>
+                            <p style="font-size:20px;color:#4cff00">@ViewBag.Message</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

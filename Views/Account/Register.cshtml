@@ -4,51 +4,163 @@
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-<!-->-->
-@*<h2>Register</h2>*@
-<br/>
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        HTML CSS JS Result Edit on body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .vid-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bgvid {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+        }
+
+        .inner-container {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            top: calc(50vh - 200px);
+            left: calc(50vw - 200px);
+            overflow: hidden;
+        }
+
+        .bgvid.inner {
+            top: calc(-50vh + 200px);
+            left: calc(-50vw + 200px);
+            filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+            -webkit-filter: blur(10px);
+            -ms-filter: blur(10px);
+            -o-filter: blur(10px);
+            filter: blur(10px);
+        }
+
+        .box {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            background: rgba(0,0,0,0.13);
+            padding: 30px 0px;
+        }
+
+            .box h1 {
+                text-align: center;
+                margin: 30px 0;
+                font-size: 30px;
+            }
+
+            .box input {
+                display: block;
+                width: 300px;
+                margin: 20px auto;
+                padding: 15px;
+                background: rgba(0,0,0,0.2);
+                color: #fff;
+                font-size: 20px;
+                border: 0;
+            }
+
+                .box input:focus, .box input:active, .box button:focus, .box button:active {
+                    outline: none;
+                }
+
+            .box button {
+                background: #2ecc71;
+                border: 0;
+                color: #fff;
+                padding: 10px;
+                font-size: 20px;
+                width: 330px;
+                margin: 20px auto;
+                display: block;
+                cursor: pointer;
+            }
+
+                .box button:active {
+                    background: #27ae60;
+                }
+
+            .box p {
+                font-size: 18px;
+                text-align: center;
+                color: #fff;
+            }
+
+                .box p span {
+                    cursor: pointer;
+                    color: #fff;
+                }        
+    </style>
+</head>
+@*<br/>
 <br />
 <br />
 <br />
-@ViewBag.Message
+
 <h2 class="text-center">Please fill in the Information below</h2>
-<div class="container col-sm-offset-5">
+<div class="container col-sm-offset-4">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
+        <h3 style="color:#00ff21">@ViewBag.Message</h3>
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @*@Html.LabelFor(model => model.IdNumberOrPassport, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                @Html.LabelFor(model => model.IdNumberOrPassport, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-sm-12">
-                    @Html.EditorFor(model => model.IdNumberOrPassport, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter your ID or Passport Number" } })
+                    @Html.EditorFor(model => model.IdNumberOrPassport, new { htmlAttributes = new { @class = "form-control", style = "font-size:20px;width:50%;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter your ID or Passport Number" } })
                     @Html.ValidationMessageFor(model => model.IdNumberOrPassport, "", new { @class = "text-danger" })
                 </div>
             </div>
-            @*<div id="parent">
-                <div>
-                    <div style="font:10px" id="txt">This will be used to identity your DSTV account and will not be shared publicly</div>
-                </div>
-                
-            </div>*@
             
             <div class="form-group">
-                <div class="col-sm-10">
-                    <input type="submit" value="Next"  class="btn btn-lg btn-primary" style="width:100%" />
+                <div class="col-sm-12">
+                    <input type="submit" value="Next"  class="btn btn-lg btn-primary" style="width:50%" />
                 </div>
             </div>
         </div>
     }
     
 </div>
-@*<div class="text-center" style="color:#0094ff">
-    @Html.ActionLink("Back", "Index")
-</div>*@
-<div class="text-center" style="color:#0094ff">
-    @Html.ActionLink("Already Registered? Login", "Login")
-</div>
 
+<div class="text-center" style="color:#0094ff">
+    <h4>@Html.ActionLink("Already Registered? Login", "Login")</h4>
+   
+</div>*@
+
+<body>
+    <div class="vid-container">
+        <video class="bgvid" autoplay="autoplay" muted="muted" preload="auto" loop>
+            <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?1410742112" type="video/webm">
+        </video>
+        <div class="inner-container">
+            <video class="bgvid inner" autoplay="autoplay" muted="muted" preload="auto" loop>
+                <source src="http://mazwai.com/system/posts/videos/000/000/109/webm/leif_eliasson--glaciartopp.webm?random=1" type="video/webm">
+            </video>
+            <form method="post" action="Register">
+                <div class="box">
+                    <h1>Register</h1>
+                    <input type="text" name="IdNumberOrPassport" placeholder="Id Or Passport Number" />
+                    <button type="submit">Register</button>
+                    <p><span>@Html.ActionLink("Already Registered? Login", "Login")</span></p>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>
 <script type="text/javascript">
     $("#parent").hover(
         function () {
@@ -59,6 +171,15 @@
             $("#txt").hide();
         }
     )
+
+    //function check()
+    //{
+    //    if (name == null)
+    //    {
+    //        console.log("provide id");
+    //        alert("Provide id");
+    //    }
+    //}
 </script>
 
 

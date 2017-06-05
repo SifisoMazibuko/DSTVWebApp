@@ -18,9 +18,9 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44339</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressSSLPort>44371</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -55,6 +55,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -149,34 +155,53 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ComedyController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Context\DataContext.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\RewardsController.cs" />
+    <Compile Include="Controllers\SelfServiceController.cs" />
+    <Compile Include="Controllers\SeriesController.cs" />
     <Compile Include="Controllers\ShowsController.cs" />
+    <Compile Include="Controllers\SubscribesController.cs" />
+    <Compile Include="Controllers\SupportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704180710477_InitialCreate.cs" />
-    <Compile Include="Migrations\201704180710477_InitialCreate.Designer.cs">
-      <DependentUpon>201704180710477_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201705260811144_InitialCreate4.cs" />
+    <Compile Include="Migrations\201705260811144_InitialCreate4.Designer.cs">
+      <DependentUpon>201705260811144_InitialCreate4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201704190621455_InitialCreate1.cs" />
-    <Compile Include="Migrations\201704190621455_InitialCreate1.Designer.cs">
-      <DependentUpon>201704190621455_InitialCreate1.cs</DependentUpon>
+    <Compile Include="Migrations\201705260913352_InitialCreate41.cs" />
+    <Compile Include="Migrations\201705260913352_InitialCreate41.Designer.cs">
+      <DependentUpon>201705260913352_InitialCreate41.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705261103043_InitialCreate42.cs" />
+    <Compile Include="Migrations\201705261103043_InitialCreate42.Designer.cs">
+      <DependentUpon>201705261103043_InitialCreate42.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Billing.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\C__MigrationHistory.cs" />
     <Compile Include="Models\dsCustomer.cs" />
     <Compile Include="Models\DSModel.cs" />
+    <Compile Include="Models\FixEnquire.cs" />
+    <Compile Include="Models\GuideModel.cs" />
+    <Compile Include="Models\InfoSummary.cs" />
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\RegisterFlow.cs" />
+    <Compile Include="Models\Rewards.cs" />
     <Compile Include="Models\Show.cs" />
+    <Compile Include="Models\Subscribe.cs" />
+    <Compile Include="Models\SupportQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,13 +221,21 @@
     <Content Include="Images\CatchUp-icon.png" />
     <Content Include="Images\connect.png" />
     <Content Include="Images\connectlogo.jpg" />
+    <Content Include="Images\dsimages.jpg" />
     <Content Include="Images\DSLogo.PNG" />
+    <Content Include="Images\dstv.jpg" />
     <Content Include="Images\facebook.png" />
     <Content Include="Images\Farscapecrew_0.jpg" />
+    <Content Include="Images\fix.PNG" />
+    <Content Include="Images\fixerror.png" />
     <Content Include="Images\google.png" />
+    <Content Include="Images\howTopay.png" />
+    <Content Include="Images\images.jpg" />
     <Content Include="Images\Kyknet.jpg" />
     <Content Include="Images\magician.png" />
+    <Content Include="Images\makeApayment.png" />
     <Content Include="Images\MultiChoice.jpg" />
+    <Content Include="Images\MyAccount.png" />
     <Content Include="Images\profile.png" />
     <Content Include="Images\search.png" />
     <Content Include="Images\thehustle_lrg.jpg" />
@@ -233,7 +266,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -263,13 +298,47 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\Profile\Overview.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\_SearchPartial.cshtml" />
     <Content Include="Views\Home\SearchView.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_FacelogPartial.cshtml" />
+    <Content Include="Views\Profile\Overview.cshtml" />
+    <Content Include="Views\Shows\Subscribe.cshtml" />
+    <Content Include="Views\Shared\Details.cshtml" />
+    <Content Include="Views\Account\AdminLogin.cshtml" />
+    <Content Include="Views\Account\AdminRegister.cshtml" />
+    <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
+    <Content Include="Views\Subscribes\Create.cshtml" />
+    <Content Include="Views\Subscribes\Delete.cshtml" />
+    <Content Include="Views\Subscribes\Details.cshtml" />
+    <Content Include="Views\Subscribes\Edit.cshtml" />
+    <Content Include="Views\Subscribes\Index.cshtml" />
+    <Content Include="Views\Shows\Guide.cshtml" />
+    <Content Include="Views\Movies\MovieCalendar.cshtml" />
+    <Content Include="Views\Comedy\ComedyCalendar.cshtml" />
+    <Content Include="Views\Series\SeriesCalendar.cshtml" />
+    <Content Include="Views\Payment\Info.cshtml" />
+    <Content Include="Views\Shows\List.cshtml" />
+    <Content Include="Views\Support\Support.cshtml" />
+    <Content Include="Views\Rewards\Create.cshtml" />
+    <Content Include="Views\Rewards\Delete.cshtml" />
+    <Content Include="Views\Rewards\Details.cshtml" />
+    <Content Include="Views\Rewards\Edit.cshtml" />
+    <Content Include="Views\Rewards\Index.cshtml" />
+    <Content Include="Views\Rewards\Rewards2.cshtml" />
+    <Content Include="Views\Rewards\MoreDetails.cshtml" />
+    <Content Include="Views\Rewards\Rewards.cshtml" />
+    <Content Include="Views\Rewards\RewardDetails.cshtml" />
+    <Content Include="Views\Support\SupportQuery.cshtml" />
+    <Content Include="Views\Payment\InfoCustomer.cshtml" />
+    <Content Include="Views\Payment\CustomerInformation.cshtml" />
+    <Content Include="Views\SelfService\SelfService.cshtml" />
+    <Content Include="Views\SelfService\Fix.cshtml" />
+    <Content Include="Views\SelfService\MakePayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -290,11 +359,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704180710477_InitialCreate.resx">
-      <DependentUpon>201704180710477_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705260811144_InitialCreate4.resx">
+      <DependentUpon>201705260811144_InitialCreate4.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704190621455_InitialCreate1.resx">
-      <DependentUpon>201704190621455_InitialCreate1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705260913352_InitialCreate41.resx">
+      <DependentUpon>201705260913352_InitialCreate41.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705261103043_InitialCreate42.resx">
+      <DependentUpon>201705261103043_InitialCreate42.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -315,7 +387,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>23565</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44341/</IISUrl>
+          <IISUrl>https://localhost:44381/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>https://localhost:44341/</CustomServerUrl>

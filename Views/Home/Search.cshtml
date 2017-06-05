@@ -1,19 +1,19 @@
-﻿@model IEnumerable<DSTVWebApp.Models.Show>
+﻿@model DSTVWebApp.Models.Show
 
 @{
     ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br/>
-<br/>
-@if (Session["search"] != null)
-{
+<br />
+<br />
+
 <h2>Search Results...</h2>
 
 <div class="move">
     <section>
-        <div>
-            
-            @foreach (var item in Model)
+        <div id="myTable">
+
+            @foreach (var item in ViewBag.search)
             {
                 <h1><span class=""></span> @item.Category</h1>
                 <div style="display:inline-block">
@@ -30,21 +30,8 @@
         </div>
     </section>
     <br />
-    
+
 </div>
- }
-
-@if (Session["search"] == null)
-{
-    {
-        <br />
-        <br />
-        <h2>Search Results...</h2>
-        <p>Not found, Please Try again!!</p>
-
-         
-    }
-}
 
 <script type="text/javascript">
 
@@ -70,3 +57,23 @@
                 }
 
 </script>
+
+<div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+</div>

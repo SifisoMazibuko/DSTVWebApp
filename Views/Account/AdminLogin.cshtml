@@ -1,0 +1,65 @@
+﻿@model DSTVWebApp.Models.Admin
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AdminLogin</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        .resize{
+            width:40%;
+            height:50px;
+        }
+        #center{
+            margin-left:300px;
+            margin-top:200px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        <h3 style="color:#00ff21">@ViewBag.Message</h3>
+        <div class="form-horizontal" id="center">
+            <h2><b>Admin Login</b></h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control resize", placeholder="UserName" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-offset-2 col-md-10">
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control resize", placeholder = "Password" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    @*<input type="submit" value="Login" class="btn btn-lg btn-primary" style="width:10%"/>*@
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:10%">Login <span class="glyphicon glyphicon-log-in"></span></button>
+                </div>
+            </div>
+        </div>
+    }
+    
+    @*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+</body>
+</html>

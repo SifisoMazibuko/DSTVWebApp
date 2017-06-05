@@ -1,0 +1,100 @@
+﻿@model DSTVWebApp.Models.Customer
+
+@{
+    ViewBag.Title = "Subscribe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        #SubPanel {
+            position: relative;
+            border: 1px solid #727272;
+            height: 200px;
+            width: 300px;
+        }
+
+        #move {
+            margin-left: 200px;
+            margin-right: 50px;
+        }
+    </style>
+</head>
+
+<br />
+<br />
+@using (Html.BeginForm())
+{
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @*<span class="close">&times;</span>*@
+            <div class="modal-body">
+               
+                    <h3 style="color:#4cff00">@ViewBag.Message</h3>
+                   
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>My Newsletter</h4>
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.IdNumberOrPassport, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <div class="col-sm-6">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new {style = "font-size:16px;width:100%;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Email Address" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-3">
+                                <img src="~/Images/dsimages.jpg" width="250" height="150"/>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10" id="move">
+                                <input type="submit" value="Subscribe" class="btn btn-primary" style="font-size:20px;width:100%" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glyphicon glyphicon-backward">
+                        @Html.ActionLink("Back", "Index", "Home")
+                    </div>
+                    
+
+
+            </div>
+        </div>
+    </div>
+} 
+@*<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>*@
+
+

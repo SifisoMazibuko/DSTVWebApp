@@ -1,43 +1,165 @@
 ﻿@model DSTVWebApp.Models.Payment
+
 @{
     ViewBag.Title = "MyDstv";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-<br/>
-@*@<div class="container  col-sm-offset-5">
+<head>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .vid-container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .bgvid {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+        }
+
+        .inner-container {
+            width: 400px;
+            height: 800px;
+            position: absolute;
+            overflow: hidden;
+            margin-top: 55px;
+            left: calc(50vw - 200px);
+        }
+
+        .bgvid.inner {
+            top: calc(-50vh + 200px);
+            left: calc(-50vw + 200px);
+            filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+            -webkit-filter: blur(10px);
+            -ms-filter: blur(10px);
+            -o-filter: blur(10px);
+            filter: blur(10px);
+        }
+
+        .box {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            background: rgba(0,0,0,0.13);
+        }
+
+            .box h1 {
+                text-align: center;
+                margin: 30px 0;
+                font-size: 30px;
+            }
+
+            .box input {
+                display: block;
+                width: 350px;
+                margin: 20px auto;
+                padding: 15px;
+                color: black;
+                font-size: 20px;
+                border: 0;
+            }
+
+                .box input:focus, .box input:active, .box button:focus, .box button:active {
+                    outline: none;
+                }
+
+            .box button {
+                background: #0094ff;
+                border: 0;
+                color: #fff;
+                padding: 10px;
+                font-size: 20px;
+                width: 330px;
+                margin: 20px auto;
+                display: block;
+                cursor: pointer;
+            }
+
+                .box button:active {
+                    background: #27ae60;
+                }
+
+            .box p {
+                font-size: 18px;
+                text-align: center;
+                color: #fff;
+            }
+
+                .box p span {
+                    cursor: pointer;
+                    color: #fff;
+                }
+
+                .fontSize{
+                    font-size:20px;
+                    color:#fff;
+                }
+    </style>
+
+</head> 
+
+@*@using (Html.BeginForm("SaveImage", "Payment",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="text-center container">
+        <img  id="preview" height="200" width="200" />
+        <label>
+            Add profile image
+            <input type="file" name="Uploadfile" id="Uploadfile" onclick="@Html.Action("SaveImage","Payment")">
+        </label>
+        <button type="submit"></button>
+    </div>
+}*@
+
+
     
-    <h2>Link Dstv Smartcard</h2>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+@*<div class="row">
+    <div class="tab-box">
+        <ul>
+            <li class="tab-left" href="javascript:void(0);">First</li>
+            <li class="tab-center" href="javascript:void(0);">OR</li>
+            <li class="tab-right">Last</li>
+        </ul>
+    </div>
+    
+</div>*@
 
-        <div class="form-horizontal">
-            
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.smartCardNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-10">
-                    @Html.EditorFor(model => model.smartCardNumber, new { htmlAttributes = new { @class = "form-control", style = "font-size:16px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder= "Enter smartcard number" } })
-                    @Html.ValidationMessageFor(model => model.smartCardNumber, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.accountHolderSurname, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-10">
-                    @Html.EditorFor(model => model.accountHolderSurname, new { htmlAttributes = new { @class = "form-control", style = "font-size:16px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter Account's holder surname" } })
+<body>
+    <br/><br/>
+    <div class="vid-container">
+        <div class="inner-container">
+            <p style="color:#ff0000">@ViewBag.success</p> 
+            @using (Html.BeginForm("MyDstv", "Payment", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="box">
+                    <img src="" id="preview" height="150" width="150" />
+                    <label>
+                        <br/>
+                        Change profile picture
+                        <input type="file" name="Uploadfile" id="Uploadfile" onclick="@Html.Action("SaveImage","Payment")">
+                    </label>
+               
+                    @Html.EditorFor(model => model.CustomerNumber, new { htmlAttributes = new { @class = "form-control fontSize", placeholder = "Enter Customer Number" } })
+                    @Html.ValidationMessageFor(model => model.CustomerNumber, "", new { @class = "text-danger" })
+
+                    @Html.EditorFor(model => model.accountHolderSurname, new { htmlAttributes = new { @class = "form-control fontSize", placeholder = "Enter Account's holder surname" } })
                     @Html.ValidationMessageFor(model => model.accountHolderSurname, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <label class="control-label">Account Holder's Country</label>
-            <span class="glyphicon glyphicon-exclamation-sign" data-toggle="tooltip" data-placement="top"title="This is the Country associated with your DSTV Subscription. Please ensure that is correct!"></span>
-            <br/>
-            <div class="form-group">
-                
-                @Html.LabelFor(model => model.accountHolderCountry, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-sm-10">
-                    <select style="width:100%" data-val="true" data-val-required="The country is required." id="accountHolderCountry" name="accountHolderCountry" class="valid">
+                    <label class="control-label" style="color:black">Account Holder's Country</label>
+                    <span class="glyphicon glyphicon-exclamation-sign" data-toggle="tooltip" data-placement="top" title="This is the Country associated with your Subscription. Please ensure that is correct!"></span>
+                    <br />
+                    <select style="margin-left:25px;height:45px;width:87%" data-val="true" data-val-required="The country is required." id="accountHolderCountry" name="accountHolderCountry" class="valid">
                         <option value="Algeria">Algeria</option>
                         <option value="Angola">Angola</option>
                         <option value="Benin">Benin</option>
@@ -90,250 +212,47 @@
                         <option value="Zambia">Zambia</option>
                         <option value="Zimbabwe">Zimbabwe</option>
                     </select>
-
-                    @Html.EditorFor(model => model.accountHolderCountry, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.accountHolderCountry, "", new { @class = "text-danger" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <input type="submit" value="Link DStv Smartrard" class="btn btn-primary" style="width:100%" />
+                    <button type="submit">Link</button>
                 </div>
-            </div>
+
+               
+
+            }            
+            
         </div>
-    }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
     </div>
+</body>
 
-</div>*@
+<script type="text/javascript">
+    $(function () {
+        $("#Uploadfile").on('change', function () {
+            // Display image on the page for viewing
+            readURL(this, "preview");     
+    });
 
-<br/>
-<br/>
-<p style="color:#ff0000">@ViewBag.error</p>
-<p style="color:#ff0000">@ViewBag.success</p> 
-<h2 class="text-center" style="color:#808080">Link DStv Smartcard</h2>
-<div class="container" style="padding-left:112px;margin-right:100px;display:block">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#smart"><b style="color:#1f82fc">Smartcard number</b></a></li>
-        <li><a style="pointer-events: none; cursor: default;" href="#"><b>OR</b></a></li>
-        <li><a data-toggle="tab" href="#cust"><b style="color:#1f82fc">Customer number</b></a></li>
-    </ul>
+    function readURL(input, tar) {
+        if (input.files && input.files[0]) { // got sth
 
-    <div class="tab-content" style="margin-left:70px">
-        <div id="smart" class="tab-pane fade in active">
-           @using (Html.BeginForm())
-           {
-            @Html.AntiForgeryToken()
+            // Clear image container
+            $("#" + tar).removeAttr('src');
 
-            <div class="form-horizontal">
-               @ViewBag.Message
-                @Html.Raw(ViewBag.Message)
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.smartCardNumber, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <div class="col-sm-10">
-                        @Html.EditorFor(model => model.smartCardNumber, new { htmlAttributes = new { @class = "form-control", style = "font-size:16px;height:50px;width:400px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter Smartcard Number" } })
-                        @Html.ValidationMessageFor(model => model.smartCardNumber, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @*@Html.LabelFor(model => model.accountHolderSurname, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <div class="col-sm-10">
-                        @Html.EditorFor(model => model.accountHolderSurname, new { htmlAttributes = new { @class = "form-control", style = "font-size:16px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter Account's holder surname" } })
-                        @Html.ValidationMessageFor(model => model.accountHolderSurname, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <label class="control-label">Account Holder's Country</label>
-                <span class="glyphicon glyphicon-exclamation-sign" data-toggle="tooltip" data-placement="top" title="This is the Country associated with your DSTV Subscription. Please ensure that is correct!"></span>
-                <br />
-                <div class="form-group">
-
-                    @*@Html.LabelFor(model => model.accountHolderCountry, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                    <div class="col-sm-10">
-                        <select style="width:100%" data-val="true" data-val-required="The country is required." id="accountHolderCountry" name="accountHolderCountry" class="valid">
-                            <option value="Algeria">Algeria</option>
-                            <option value="Angola">Angola</option>
-                            <option value="Benin">Benin</option>
-                            <option value="Botswana">Botswana</option>
-                            <option value="Burkina Faso">Burkina Faso</option>
-                            <option value="Burundi">Burundi</option>
-                            <option value="Cameroon">Cameroon</option>
-                            <option value="Cape Verde">Cape Verde</option>
-                            <option value="Central African Republic">Central African Republic</option>
-                            <option value="Chad">Chad</option>
-                            <option value="Comoros">Comoros</option>
-                            <option value="DRC">DRC</option>
-                            <option value="Djibouti">Djibouti</option>
-                            <option value="Equatorial Guinea">Equatorial Guinea</option>
-                            <option value="Eritrea">Eritrea</option>
-                            <option value="Ethiopia">Ethiopia</option>
-                            <option value="Gabon">Gabon</option>
-                            <option value="Gambia">Gambia</option>
-                            <option value="Ghana">Ghana</option>
-                            <option value="Guinea">Guinea</option>
-                            <option value="Guinea-Bissau">Guinea-Bissau</option>
-                            <option value="Ivory Coast">Ivory Coast</option>
-                            <option value="Kenya">Kenya</option>
-                            <option value="Lesotho">Lesotho</option>
-                            <option value="Liberia">Liberia</option>
-                            <option value="Madagascar">Madagascar</option>
-                            <option value="Malawi">Malawi</option>
-                            <option value="Mali">Mali</option>
-                            <option value="Mauritania">Mauritania</option>
-                            <option value="Mauritius">Mauritius</option>
-                            <option value="Mayotte">Mayotte</option>
-                            <option value="Mozambique">Mozambique</option>
-                            <option value="Namibia">Namibia</option>
-                            <option value="Niger">Niger</option>
-                            <option value="Nigeria">Nigeria</option>
-                            <option value="Republic of the Congo">Republic of the Congo</option>
-                            <option value="Rwanda">Rwanda</option>
-                            <option value="RÃ©union">RÃ©union</option>
-                            <option value="Saint Helena">Saint Helena</option>
-                            <option value="Senegal">Senegal</option>
-                            <option value="Seychelles">Seychelles</option>
-                            <option value="Sierra Leone">Sierra Leone</option>
-                            <option value="Somalia">Somalia</option>
-                            <option selected="selected" value="South Africa">South Africa</option>
-                            <option value="Sudan">Sudan</option>
-                            <option value="Swaziland">Swaziland</option>
-                            <option value="Tanzania">Tanzania</option>
-                            <option value="Togo">Togo</option>
-                            <option value="Uganda">Uganda</option>
-                            <option value="Zambia">Zambia</option>
-                            <option value="Zimbabwe">Zimbabwe</option>
-                        </select>
-
-                        @*@Html.EditorFor(model => model.accountHolderCountry, new { htmlAttributes = new { @class = "form-control" } })*@
-                        @Html.ValidationMessageFor(model => model.accountHolderCountry, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="submit" value="Link DStv Smartrard" class="btn btn-primary" style="width:100%" />
-                    </div>
-                </div>
-            </div>
-           }
-        </div>
-
-        <div id="cust" class="tab-pane fade">
-            @using (Html.BeginForm())
+            $.each(input.files, function (index, ff)  // loop each image 
             {
-                @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
+                var reader = new FileReader();
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @*@Html.LabelFor(model => model.smartCardNumber, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                        <div class="col-sm-10">
-                            @Html.EditorFor(model => model.CustomerNumber, new { htmlAttributes = new { @class = "form-control", style = "font-size:16px;height:50px;width:400px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter Customer Number" } })
-                            @Html.ValidationMessageFor(model => model.CustomerNumber, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
+                // Put image in created image tags
+                reader.onload = function (e) {
+                    $('#' + tar).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(ff);
 
-                    <div class="form-group">
-                        @*@Html.LabelFor(model => model.accountHolderSurname, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                        <div class="col-sm-10">
-                            @Html.EditorFor(model => model.accountHolderSurname, new { htmlAttributes = new { @class = "form-control", style = "font-size:16px;height:50px;border:none;border-bottom:1px solid lightgray;", placeholder = "Enter Account's holder surname" } })
-                            @Html.ValidationMessageFor(model => model.accountHolderSurname, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <label class="control-label">Account Holder's Country</label>
-                    <span class="glyphicon glyphicon-exclamation-sign" data-toggle="tooltip" data-placement="top" title="This is the Country associated with your DSTV Subscription. Please ensure that is correct!"></span>
-                    <br />
-                    <div class="form-group">
-
-                        @*@Html.LabelFor(model => model.accountHolderCountry, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                        <div class="col-sm-10">
-                            <select style="width:100%" data-val="true" data-val-required="The country is required." id="accountHolderCountry" name="accountHolderCountry" class="valid">
-                                <option value="Algeria">Algeria</option>
-                                <option value="Angola">Angola</option>
-                                <option value="Benin">Benin</option>
-                                <option value="Botswana">Botswana</option>
-                                <option value="Burkina Faso">Burkina Faso</option>
-                                <option value="Burundi">Burundi</option>
-                                <option value="Cameroon">Cameroon</option>
-                                <option value="Cape Verde">Cape Verde</option>
-                                <option value="Central African Republic">Central African Republic</option>
-                                <option value="Chad">Chad</option>
-                                <option value="Comoros">Comoros</option>
-                                <option value="DRC">DRC</option>
-                                <option value="Djibouti">Djibouti</option>
-                                <option value="Equatorial Guinea">Equatorial Guinea</option>
-                                <option value="Eritrea">Eritrea</option>
-                                <option value="Ethiopia">Ethiopia</option>
-                                <option value="Gabon">Gabon</option>
-                                <option value="Gambia">Gambia</option>
-                                <option value="Ghana">Ghana</option>
-                                <option value="Guinea">Guinea</option>
-                                <option value="Guinea-Bissau">Guinea-Bissau</option>
-                                <option value="Ivory Coast">Ivory Coast</option>
-                                <option value="Kenya">Kenya</option>
-                                <option value="Lesotho">Lesotho</option>
-                                <option value="Liberia">Liberia</option>
-                                <option value="Madagascar">Madagascar</option>
-                                <option value="Malawi">Malawi</option>
-                                <option value="Mali">Mali</option>
-                                <option value="Mauritania">Mauritania</option>
-                                <option value="Mauritius">Mauritius</option>
-                                <option value="Mayotte">Mayotte</option>
-                                <option value="Mozambique">Mozambique</option>
-                                <option value="Namibia">Namibia</option>
-                                <option value="Niger">Niger</option>
-                                <option value="Nigeria">Nigeria</option>
-                                <option value="Republic of the Congo">Republic of the Congo</option>
-                                <option value="Rwanda">Rwanda</option>
-                                <option value="RÃ©union">RÃ©union</option>
-                                <option value="Saint Helena">Saint Helena</option>
-                                <option value="Senegal">Senegal</option>
-                                <option value="Seychelles">Seychelles</option>
-                                <option value="Sierra Leone">Sierra Leone</option>
-                                <option value="Somalia">Somalia</option>
-                                <option selected="selected" value="South Africa">South Africa</option>
-                                <option value="Sudan">Sudan</option>
-                                <option value="Swaziland">Swaziland</option>
-                                <option value="Tanzania">Tanzania</option>
-                                <option value="Togo">Togo</option>
-                                <option value="Uganda">Uganda</option>
-                                <option value="Zambia">Zambia</option>
-                                <option value="Zimbabwe">Zimbabwe</option>
-                            </select>
-
-                            @*@Html.EditorFor(model => model.accountHolderCountry, new { htmlAttributes = new { @class = "form-control" } })*@
-                            @Html.ValidationMessageFor(model => model.accountHolderCountry, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-10">
-                            <input type="submit" value="Link DStv Smartrard" class="btn btn-primary" style="width:100%" />
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-
-        
-    </div>
-</div>
-
-
-@*<div class="row">
-    <div class="tab-box">
-        <ul>
-            <li class="tab-left" href="javascript:void(0);">First</li>
-            <li class="tab-center" href="javascript:void(0);">OR</li>
-            <li class="tab-right">Last</li>
-        </ul>
-    </div>
-    
-</div>*@
+            });
+        }
+    }
+</script>
+<script type="text/javascript" src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.js"></script>
